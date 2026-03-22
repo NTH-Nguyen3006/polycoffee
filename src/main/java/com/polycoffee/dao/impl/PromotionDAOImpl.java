@@ -3,13 +3,13 @@ package com.polycoffee.dao.impl;
 import com.polycoffee.dao.IPromotionDAO;
 import com.polycoffee.entity.Promotion;
 import com.polycoffee.utils.XJPA;
-import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class PromotionDAOImpl implements IPromotionDAO {
 
     public void create(Promotion entity) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(entity);
@@ -24,7 +24,7 @@ public class PromotionDAOImpl implements IPromotionDAO {
 
     @Override
     public void update(Promotion entity) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(entity);
@@ -39,7 +39,7 @@ public class PromotionDAOImpl implements IPromotionDAO {
 
     @Override
     public void delete(Long id) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
             Promotion entity = em.find(Promotion.class, id);
@@ -57,7 +57,7 @@ public class PromotionDAOImpl implements IPromotionDAO {
 
     @Override
     public Promotion findById(Long id) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(Promotion.class, id);
         } finally {
@@ -67,7 +67,7 @@ public class PromotionDAOImpl implements IPromotionDAO {
 
     @Override
     public List<Promotion> findAll() {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             return em.createQuery("SELECT p FROM Promotion p", Promotion.class).getResultList();
         } finally {
