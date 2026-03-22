@@ -1,15 +1,15 @@
-package com.polycoffee.dao;
+package com.polycoffee.dao.impl;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import com.polycoffee.dao.IOrdersDAO;
 import com.polycoffee.entity.Orders;
 import com.polycoffee.utils.XJPA;
 
-public class OrdersDAO implements CRUD<Integer, Orders> {
+public class OrdersDAO implements IOrdersDAO {
 
     @Override
     public List<Orders> findAll() {
@@ -81,6 +81,7 @@ public class OrdersDAO implements CRUD<Integer, Orders> {
         }
     }
 
+    @Override
     public Orders findByCode(String code) {
         EntityManager em = XJPA.createEntityManager();
         try {
@@ -95,6 +96,7 @@ public class OrdersDAO implements CRUD<Integer, Orders> {
         }
     }
 
+    @Override
     public List<Orders> findByUserId(int userId) {
         EntityManager em = XJPA.createEntityManager();
         try {
@@ -107,6 +109,7 @@ public class OrdersDAO implements CRUD<Integer, Orders> {
         }
     }
 
+    @Override
     public void updateStatus(int id, String newStatus) {
         EntityManager em = XJPA.createEntityManager();
         try {
