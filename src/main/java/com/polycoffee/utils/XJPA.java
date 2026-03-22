@@ -1,4 +1,4 @@
-package com.poly.utils;
+package com.polycoffee.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

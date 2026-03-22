@@ -1,4 +1,4 @@
-package com.poly.utils;
+package com.polycoffee.utils;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 
