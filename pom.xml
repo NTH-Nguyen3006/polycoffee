@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.polycoffee</groupId>
   <artifactId>polycoffee</artifactId>
-  <version>v1</version>
+  <version>v1.0.0</version>
   <packaging>war</packaging>
   <name>polycoffee Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
