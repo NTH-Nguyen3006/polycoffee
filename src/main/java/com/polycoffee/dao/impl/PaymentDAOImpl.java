@@ -1,12 +1,12 @@
 package com.polycoffee.dao.impl;
 
-import com.polycoffee.dao.PaymentDAO;
+import com.polycoffee.dao.IPaymentDAO;
 import com.polycoffee.entity.Payment;
 import com.polycoffee.utils.XJPA;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 
-public class PaymentDAOImpl implements PaymentDAO {
+public class PaymentDAOImpl implements IPaymentDAO {
 
     public void create(Payment entity) {
         EntityManager em = XJPA.getEntityManager();

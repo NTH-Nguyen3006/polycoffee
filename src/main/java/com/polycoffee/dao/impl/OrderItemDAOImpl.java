@@ -1,12 +1,12 @@
 package com.polycoffee.dao.impl;
 
-import com.polycoffee.dao.OrderItemDAO;
+import com.polycoffee.dao.IOrderItemDAO;
 import com.polycoffee.entity.OrderItem;
 import com.polycoffee.utils.XJPA;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 
-public class OrderItemDAOImpl implements OrderItemDAO {
+public class OrderItemDAOImpl implements IOrderItemDAO {
 
     public void create(OrderItem entity) {
         EntityManager em = XJPA.getEntityManager();
