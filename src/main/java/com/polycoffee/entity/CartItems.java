@@ -5,35 +5,46 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "Cart_Items")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartItems {
 
     @Id
-    private int id; // PK
+    int id;
 
     @Column(name = "cart_id")
-    private int cartId; // FK
+    int cartId;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id", insertable = false, updatable = false)
+    Carts cart;
 
     @Column(name = "product_id")
-    private int productId; // FK
+    int productId;
 
-    private int quantity;
+    @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    Products product;
 
-    @Column(name = "selected_options", columnDefinition = "json")
-    private String selectedOptions; 
-    // Trong Java, dữ liệu JSON thường được nhận diện là String hoặc dùng thư viện Jackson/Gson để xử lý.
+    int quantity;
+
+    @Column(name = "selected_options")
+    String selectedOptions;
 
     @Column(name = "sub_total")
-    private BigDecimal subTotal; 
-    // Khớp với kiểu 'decimal' trong hình
+    BigDecimal subTotal;
 }

@@ -2,6 +2,6 @@ package com.polycoffee.dao;
 
 import com.polycoffee.entity.Categories;
 
-public interface ICategoryDAO extends CRUD<Integer, Categories> {
+public interface ICategoryDAO extends ICRUD<Integer, Categories> {
 
 }

@@ -1,6 +1,7 @@
 package com.polycoffee.entity;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 
@@ -9,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,22 +20,27 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "order_id")
-    private Long orderId;
+    Long orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    Orders order;
 
     @Column(name = "product_name")
-    private String productName;
+    String productName;
 
-    private Integer quantity;
+    Integer quantity;
 
-    private BigDecimal price;
+    BigDecimal price;
 
     @Column(name = "options_snapshot", columnDefinition = "TEXT")
-    private String optionsSnapshot;
+    String optionsSnapshot;
 }

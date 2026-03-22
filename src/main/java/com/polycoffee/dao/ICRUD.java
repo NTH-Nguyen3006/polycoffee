@@ -2,7 +2,7 @@ package com.polycoffee.dao;
 
 import java.util.List;
 
-public interface CRUD<K, E> {
+public interface ICRUD<K, E> {
 
     List<E> findAll();
 

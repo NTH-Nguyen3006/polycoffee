@@ -7,42 +7,55 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "Orders")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; // PK
+    Long id;
 
     @Column(name = "user_id")
-    private int userId; // FK
+    String userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    Users user;
 
     @Column(name = "promotion_id")
-    private Integer promotionId; // FK (Dùng Integer để có thể null nếu không áp mã)
+    Long promotionId;
+
+    @ManyToOne
+    @JoinColumn(name = "promotion_id", insertable = false, updatable = false)
+    Promotion promotion;
 
     @Column(name = "order_code")
-    private String orderCode;
+    String orderCode;
 
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    BigDecimal totalAmount;
 
     @Column(name = "shipping_address")
-    private String shippingAddress;
+    String shippingAddress;
 
-    private String status;
+    String status;
 
     @Column(name = "payment_status")
-    private String paymentStatus;
+    String paymentStatus;
 
-    private String note; // Kiểu text ánh xạ thành String
+    String note;
 }
