@@ -1,5 +1,6 @@
 package com.polycoffee.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,7 +16,9 @@ public class Categories {
     @Id
     int id;
 
+    @Column(columnDefinition = "NVARCHAR(50)")
     String name;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     String description;
 }
