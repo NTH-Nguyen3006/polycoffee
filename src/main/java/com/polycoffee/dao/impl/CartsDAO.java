@@ -1,14 +1,14 @@
-package com.polycoffee.dao;
+package com.polycoffee.dao.impl;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import com.polycoffee.dao.ICartsDAO;
 import com.polycoffee.entity.Carts;
 import com.polycoffee.utils.XJPA;
 
-public class CartsDAO implements CRUD<Integer, Carts> {
+public class CartsDAO implements ICartsDAO {
 
     @Override
     public List<Carts> findAll() {
@@ -80,6 +80,7 @@ public class CartsDAO implements CRUD<Integer, Carts> {
         }
     }
 
+    @Override
     public List<Carts> findByUserId(int userId) {
         EntityManager em = XJPA.createEntityManager();
         try {
