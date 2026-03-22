@@ -8,8 +8,7 @@ import java.util.List;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
-    @Override
-    public void insert(Payment entity) {
+    public void create(Payment entity) {
         EntityManager em = XJPA.getEntityManager();
         try {
             em.getTransaction().begin();

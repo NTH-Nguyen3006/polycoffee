@@ -8,8 +8,7 @@ import java.util.List;
 
 public class PromotionDAOImpl implements PromotionDAO {
 
-    @Override
-    public void insert(Promotion entity) {
+    public void create(Promotion entity) {
         EntityManager em = XJPA.getEntityManager();
         try {
             em.getTransaction().begin();

@@ -8,8 +8,7 @@ import java.util.List;
 
 public class OrderItemDAOImpl implements OrderItemDAO {
 
-    @Override
-    public void insert(OrderItem entity) {
+    public void create(OrderItem entity) {
         EntityManager em = XJPA.getEntityManager();
         try {
             em.getTransaction().begin();
