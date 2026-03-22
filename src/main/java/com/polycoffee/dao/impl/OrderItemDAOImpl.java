@@ -3,13 +3,13 @@ package com.polycoffee.dao.impl;
 import com.polycoffee.dao.IOrderItemDAO;
 import com.polycoffee.entity.OrderItem;
 import com.polycoffee.utils.XJPA;
-import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class OrderItemDAOImpl implements IOrderItemDAO {
 
     public void create(OrderItem entity) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(entity);
@@ -24,7 +24,7 @@ public class OrderItemDAOImpl implements IOrderItemDAO {
 
     @Override
     public void update(OrderItem entity) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(entity);
@@ -39,7 +39,7 @@ public class OrderItemDAOImpl implements IOrderItemDAO {
 
     @Override
     public void delete(Long id) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
             OrderItem entity = em.find(OrderItem.class, id);
@@ -57,7 +57,7 @@ public class OrderItemDAOImpl implements IOrderItemDAO {
 
     @Override
     public OrderItem findById(Long id) {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(OrderItem.class, id);
         } finally {
@@ -67,7 +67,7 @@ public class OrderItemDAOImpl implements IOrderItemDAO {
 
     @Override
     public List<OrderItem> findAll() {
-        EntityManager em = XJPA.getEntityManager();
+        EntityManager em = XJPA.createEntityManager();
         try {
             return em.createQuery("SELECT o FROM OrderItem o", OrderItem.class).getResultList();
         } finally {
