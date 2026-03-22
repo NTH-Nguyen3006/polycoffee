@@ -1,16 +1,18 @@
-package com.polycoffee.dao;
+package com.polycoffee.dao.impl;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import com.polycoffee.entity.Products;
+
+import com.polycoffee.dao.IProductOptionsDAO;
+import com.polycoffee.entity.ProductOptions;
 import com.polycoffee.utils.XJPA;
 
-public class ProductsDAOImpl implements ProductsDao {
+public class ProductOptionsDAOImpl implements IProductOptionsDAO {
     private EntityManager em = XJPA.createEntityManager();
 
     @Override
-    public void create(Products entity) {
+    public void create(ProductOptions entity) {
         try {
             em.getTransaction().begin();
             em.persist(entity);
@@ -22,7 +24,7 @@ public class ProductsDAOImpl implements ProductsDao {
     }
 
     @Override
-    public void update(Products entity) {
+    public void update(ProductOptions entity) {
         try {
             em.getTransaction().begin();
             em.merge(entity);
@@ -37,7 +39,7 @@ public class ProductsDAOImpl implements ProductsDao {
     public void delete(int id) {
         try {
             em.getTransaction().begin();
-            Products entity = em.find(Products.class, id);
+            ProductOptions entity = em.find(ProductOptions.class, id);
             if (entity != null)
                 em.remove(entity);
             em.getTransaction().commit();
@@ -48,22 +50,15 @@ public class ProductsDAOImpl implements ProductsDao {
     }
 
     @Override
-    public Products findById(int id) {
-        return em.find(Products.class, id);
+    public ProductOptions findById(int id) {
+        return em.find(ProductOptions.class, id);
     }
 
     @Override
-    public List<Products> findAll() {
-        String jpql = "SELECT p FROM Products p";
-        TypedQuery<Products> query = em.createQuery(jpql, Products.class);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Products> findByCategoryId(int categoryId) {
-        String jpql = "SELECT p FROM Products p WHERE p.categoryId = :cid";
-        TypedQuery<Products> query = em.createQuery(jpql, Products.class);
-        query.setParameter("cid", categoryId);
+    public List<ProductOptions> findByProductId(int productId) {
+        String jpql = "SELECT o FROM ProductOptions o WHERE o.productId = :pid";
+        TypedQuery<ProductOptions> query = em.createQuery(jpql, ProductOptions.class);
+        query.setParameter("pid", productId);
         return query.getResultList();
     }
 }

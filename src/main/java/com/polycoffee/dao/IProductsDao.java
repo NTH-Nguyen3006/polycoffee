@@ -3,7 +3,7 @@ package com.polycoffee.dao;
 import java.util.List;
 import com.polycoffee.entity.Products;
 
-public interface ProductsDao {
+public interface IProductsDao {
     void create(Products entity);
 
     void update(Products entity);
