@@ -1,6 +1,7 @@
 package com.polycoffee.entity;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Promotion {
 
     @Id

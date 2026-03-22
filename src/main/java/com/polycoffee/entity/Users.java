@@ -10,14 +10,17 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.polycoffee.enums.UserRole;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Users {
     @Id
     String id;
@@ -41,4 +44,3 @@ public class Users {
     @CreationTimestamp
     LocalDateTime create_at;
 }
-
