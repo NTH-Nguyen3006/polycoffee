@@ -29,9 +29,6 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "user_id")
-    String userId;
-
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     Users user;

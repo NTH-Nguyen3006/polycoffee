@@ -45,4 +45,5 @@ public class Products {
 
     @Column(name = "is_featured")
     boolean isFeatured;
+
 }
