@@ -1,5 +1,6 @@
 package com.polycoffee.dao.impl;
 
+import java.lang.module.ModuleDescriptor.Builder;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -78,6 +79,17 @@ public class CategoryDAO implements ICategoryDAO {
         } finally {
             em.close();
         }
+    }
+
+    public static void main(String[] args) {
+        var c = Categories.builder()
+                .name("Đồ uống").description("Thư mục đồ uống")
+                .build();
+
+        // new CategoryDAO().create(c);
+
+        System.out.println(new CategoryDAO().findAll());
+
     }
 
 }
