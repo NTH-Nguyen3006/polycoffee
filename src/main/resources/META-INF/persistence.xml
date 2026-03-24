@@ -14,8 +14,8 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect" /> -->
+            <!-- <property name="hibernate.hbm2ddl.auto" value="update" /> -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect" />
         </properties>
     </persistence-unit>
 </persistence>

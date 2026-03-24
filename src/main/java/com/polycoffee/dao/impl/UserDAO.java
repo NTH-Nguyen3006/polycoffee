@@ -1,6 +1,7 @@
 package com.polycoffee.dao.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -23,7 +24,7 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public Users findById(String id) {
+    public Users findById(UUID id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(Users.class, id);
@@ -63,7 +64,7 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(UUID id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -80,3 +81,4 @@ public class UserDAO implements IUserDAO {
         }
     }
 }
+

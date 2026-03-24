@@ -1,6 +1,7 @@
 package com.polycoffee.dao.impl;
 
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -24,7 +25,7 @@ public class OrdersDAO implements IOrdersDAO {
     }
 
     @Override
-    public Orders findById(Integer id) {
+    public Orders findById(Long id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(Orders.class, id);
@@ -64,7 +65,7 @@ public class OrdersDAO implements IOrdersDAO {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -97,12 +98,12 @@ public class OrdersDAO implements IOrdersDAO {
     }
 
     @Override
-    public List<Orders> findByUserId(int userId) {
+    public List<Orders> findByUserId(UUID userId) {
         EntityManager em = XJPA.createEntityManager();
         try {
-            String jpql = "SELECT o FROM Orders o WHERE o.userId = :uid";
+            String jpql = "SELECT o FROM Orders o WHERE o.user.id = :userId";
             TypedQuery<Orders> query = em.createQuery(jpql, Orders.class);
-            query.setParameter("uid", userId);
+            query.setParameter("userId", userId);
             return query.getResultList();
         } finally {
             em.close();
@@ -110,7 +111,7 @@ public class OrdersDAO implements IOrdersDAO {
     }
 
     @Override
-    public void updateStatus(int id, String newStatus) {
+    public void updateStatus(Long id, String newStatus) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -128,3 +129,4 @@ public class OrdersDAO implements IOrdersDAO {
         }
     }
 }
+

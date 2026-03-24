@@ -36,9 +36,6 @@ public class Users {
     @Column(columnDefinition = "NVARCHAR(20)", unique = true)
     String username;
 
-    @Column(columnDefinition = "NVARCHAR(20)", unique = true)
-    String username;
-
     @Column(columnDefinition = "NVARCHAR(50)")
     String fullname;
 

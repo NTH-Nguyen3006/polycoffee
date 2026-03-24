@@ -1,6 +1,7 @@
 package com.polycoffee.dao.impl;
 
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -23,7 +24,7 @@ public class CartsDAO implements ICartsDAO {
     }
 
     @Override
-    public Carts findById(Integer id) {
+    public Carts findById(UUID id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(Carts.class, id);
@@ -63,7 +64,7 @@ public class CartsDAO implements ICartsDAO {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(UUID id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -81,10 +82,10 @@ public class CartsDAO implements ICartsDAO {
     }
 
     @Override
-    public List<Carts> findByUserId(int userId) {
+    public List<Carts> findByUserId(UUID userId) {
         EntityManager em = XJPA.createEntityManager();
         try {
-            String jpql = "SELECT c FROM Carts c WHERE c.userId = :userId";
+            String jpql = "SELECT c FROM Carts c WHERE c.user.id = :userId";
             TypedQuery<Carts> query = em.createQuery(jpql, Carts.class);
             query.setParameter("userId", userId);
             return query.getResultList();
@@ -93,3 +94,4 @@ public class CartsDAO implements ICartsDAO {
         }
     }
 }
+

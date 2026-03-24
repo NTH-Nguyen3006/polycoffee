@@ -1,6 +1,7 @@
 package com.polycoffee.dao.impl;
 
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -23,7 +24,7 @@ public class CartItemsDAO implements ICartItemsDAO {
     }
 
     @Override
-    public CartItems findById(Integer id) {
+    public CartItems findById(Long id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(CartItems.class, id);
@@ -63,7 +64,7 @@ public class CartItemsDAO implements ICartItemsDAO {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -81,10 +82,10 @@ public class CartItemsDAO implements ICartItemsDAO {
     }
 
     @Override
-    public List<CartItems> findByCartId(int cartId) {
+    public List<CartItems> findByCartId(UUID cartId) {
         EntityManager em = XJPA.createEntityManager();
         try {
-            String jpql = "SELECT c FROM CartItems c WHERE c.cartId = :cartId";
+            String jpql = "SELECT c FROM CartItems c WHERE c.cart.id = :cartId";
             TypedQuery<CartItems> query = em.createQuery(jpql, CartItems.class);
             query.setParameter("cartId", cartId);
             return query.getResultList();
@@ -94,10 +95,10 @@ public class CartItemsDAO implements ICartItemsDAO {
     }
 
     @Override
-    public CartItems findByCartIdAndProductId(int cartId, int productId) {
+    public CartItems findByCartIdAndProductId(UUID cartId, UUID productId) {
         EntityManager em = XJPA.createEntityManager();
         try {
-            String jpql = "SELECT c FROM CartItems c WHERE c.cartId = :cartId AND c.productId = :productId";
+            String jpql = "SELECT c FROM CartItems c WHERE c.cart.id = :cartId AND c.product.id = :productId";
             TypedQuery<CartItems> query = em.createQuery(jpql, CartItems.class);
             query.setParameter("cartId", cartId);
             query.setParameter("productId", productId);
@@ -109,11 +110,11 @@ public class CartItemsDAO implements ICartItemsDAO {
     }
 
     @Override
-    public void deleteByCartId(int cartId) {
+    public void deleteByCartId(UUID cartId) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();
-            String jpql = "DELETE FROM CartItems c WHERE c.cartId = :cartId";
+            String jpql = "DELETE FROM CartItems c WHERE c.cart.id = :cartId";
             em.createQuery(jpql).setParameter("cartId", cartId).executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -124,3 +125,4 @@ public class CartItemsDAO implements ICartItemsDAO {
         }
     }
 }
+
