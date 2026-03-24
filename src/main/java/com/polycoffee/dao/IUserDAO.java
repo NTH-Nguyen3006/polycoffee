@@ -4,6 +4,8 @@ import java.util.UUID;
 import com.polycoffee.entity.Users;
 
 public interface IUserDAO extends ICRUD<UUID, Users> {
+    Users findByUsername(String username);
+
     default Users findById(String id) {
         return findById(UUID.fromString(id));
     }
@@ -12,5 +14,3 @@ public interface IUserDAO extends ICRUD<UUID, Users> {
         delete(UUID.fromString(id));
     }
 }
-
-
