@@ -27,12 +27,13 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "order_id")
-    Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    Orders order;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", insertable = false, updatable = false)
-    Orders order;
+    @JoinColumn(name = "product_id")
+    Products product;
 
     @Column(name = "product_name")
     String productName;

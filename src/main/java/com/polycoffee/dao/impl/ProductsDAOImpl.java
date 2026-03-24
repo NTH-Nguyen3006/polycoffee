@@ -36,7 +36,7 @@ public class ProductsDAOImpl implements IProductsDao {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         try {
             em.getTransaction().begin();
             Products entity = em.find(Products.class, id);
@@ -63,7 +63,7 @@ public class ProductsDAOImpl implements IProductsDao {
 
     @Override
     public List<Products> findByCategoryId(int categoryId) {
-        String jpql = "SELECT p FROM Products p WHERE p.categoryId = :cid";
+        String jpql = "SELECT p FROM Products p WHERE p.category.id = :cid";
         TypedQuery<Products> query = em.createQuery(jpql, Products.class);
         query.setParameter("cid", categoryId);
         return query.getResultList();

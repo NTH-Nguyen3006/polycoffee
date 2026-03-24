@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
 
     @Column(columnDefinition = "NVARCHAR(50)")
     String name;

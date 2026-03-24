@@ -8,7 +8,7 @@ public interface IProductsDao {
 
     void update(Products entity);
 
-    void delete(int id);
+    void delete(Long id);
 
     Products findById(int id);
 

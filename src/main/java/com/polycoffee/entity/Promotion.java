@@ -24,25 +24,25 @@ public class Promotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String code;
+    String code;
 
     @Column(name = "discount_type")
-    private String discountType;
+    String discountType;
 
     @Column(name = "discount_value")
-    private BigDecimal discountValue;
+    BigDecimal discountValue;
 
     @Column(name = "min_order_value")
-    private BigDecimal minOrderValue;
+    BigDecimal minOrderValue;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    LocalDateTime startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    LocalDateTime endDate;
 
     @Column(name = "usage_limit")
-    private Integer usageLimit;
+    Integer usageLimit;
 }
