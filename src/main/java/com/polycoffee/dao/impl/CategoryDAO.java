@@ -24,7 +24,7 @@ public class CategoryDAO implements ICategoryDAO {
     }
 
     @Override
-    public Categories findById(Integer id) {
+    public Categories findById(Long id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             return em.find(Categories.class, id);
@@ -64,7 +64,7 @@ public class CategoryDAO implements ICategoryDAO {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         EntityManager em = XJPA.createEntityManager();
         try {
             em.getTransaction().begin();

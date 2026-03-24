@@ -1,6 +1,7 @@
 package com.polycoffee.dao;
 
 import java.util.List;
+import java.util.UUID;
 import com.polycoffee.entity.ProductOptions;
 
 public interface IProductOptionsDAO {
@@ -8,9 +9,13 @@ public interface IProductOptionsDAO {
 
     void update(ProductOptions entity);
 
-    void delete(int id);
+    void delete(Long id);
 
-    ProductOptions findById(int id);
+    ProductOptions findById(Long id);
 
-    List<ProductOptions> findByProductId(int productId);
+    List<ProductOptions> findByProductId(UUID productId);
+
+    default List<ProductOptions> findByProductId(String productIdStr) {
+        return findByProductId(UUID.fromString(productIdStr));
+    }
 }
