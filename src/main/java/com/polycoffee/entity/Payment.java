@@ -28,11 +28,8 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "order_id")
-    Long orderId;
-
     @ManyToOne
-    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    @JoinColumn(name = "order_id")
     Orders order;
 
     @Column(name = "payment_method")

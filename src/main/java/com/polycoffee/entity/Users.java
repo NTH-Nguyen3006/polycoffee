@@ -1,12 +1,15 @@
 package com.polycoffee.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import com.polycoffee.enums.UserRole;
 
@@ -25,7 +28,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Users {
     @Id
-    String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    UUID id;
 
     @Column(columnDefinition = "NVARCHAR(20)", unique = true)
     String username;
@@ -44,8 +50,9 @@ public class Users {
     UserRole role;
 
     @Column(columnDefinition = "BIT")
-    boolean is_active;
+    boolean active;
 
     @CreationTimestamp
-    LocalDateTime create_at;
+    @Column(name = "created_at")
+    LocalDateTime createdAt;
 }

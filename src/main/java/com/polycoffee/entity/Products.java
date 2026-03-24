@@ -1,16 +1,27 @@
 package com.polycoffee.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder.Default;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -18,22 +29,23 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Products {
     @Id
-    int id;
-
-    @Column(name = "category_id")
-    int categoryId;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    @JoinColumn(name = "category_id")
     Categories category;
 
     String name;
 
     @Column(name = "base_price")
-    double basePrice;
+    BigDecimal basePrice;
 
     String description;
 
@@ -41,9 +53,18 @@ public class Products {
     String thumbnailUrl;
 
     @Column(name = "is_available")
-    boolean isAvailable;
+    @Default
+    boolean available = true;
 
     @Column(name = "is_featured")
-    boolean isFeatured;
+    @Default
+    boolean featured = false;
 
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    LocalDateTime updatedAt;
 }
