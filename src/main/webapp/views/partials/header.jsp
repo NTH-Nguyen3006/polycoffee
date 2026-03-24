@@ -57,17 +57,25 @@
                         <c:choose>
                             <c:when test="${not empty sessionScope.user}">
                                 <div class="dropdown">
-                                    <button class="btn btn-light rounded-pill px-4 btn-sm dropdown-toggle shadow-sm border"
+                                    <button
+                                        class="btn btn-light rounded-pill px-4 btn-sm dropdown-toggle shadow-sm border"
                                         type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-person-circle me-1"></i> ${sessionScope.user.fullname}
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 py-2" aria-labelledby="userDropdown">
-                                        <c:if test="${sessionScope.user.role == 'ADMIN' or sessionScope.user.role == 'EMPLOYEE'}">
-                                            <li><a class="dropdown-item py-2" href="${contextPath}/admin/dashboard"><i class="bi bi-speedometer2 me-2"></i> Quản trị</a></li>
-                                            <li><hr class="dropdown-divider"></li>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 py-2"
+                                        aria-labelledby="userDropdown">
+                                        <c:if
+                                            test="${sessionScope.user.role == 'ADMIN' or sessionScope.user.role == 'EMPLOYEE'}">
+                                            <li><a class="dropdown-item py-2" href="${contextPath}/admin/dashboard"><i
+                                                        class="bi bi-speedometer2 me-2"></i> Quản trị</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
                                         </c:if>
-                                        <li><a class="dropdown-item py-2" href="${contextPath}/profile"><i class="bi bi-person me-2"></i> Hồ sơ</a></li>
-                                        <li><a class="dropdown-item py-2 text-danger" href="${contextPath}/logout"><i class="bi bi-box-arrow-right me-2"></i> Đăng xuất</a></li>
+                                        <li><a class="dropdown-item py-2" href="${contextPath}/profile"><i
+                                                    class="bi bi-person me-2"></i> Hồ sơ</a></li>
+                                        <li><a class="dropdown-item py-2 text-danger" href="${contextPath}/logout"><i
+                                                    class="bi bi-box-arrow-right me-2"></i> Đăng xuất</a></li>
                                     </ul>
                                 </div>
                             </c:when>
