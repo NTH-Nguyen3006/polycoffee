@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,10 +27,10 @@ public class CategoryController extends LayoutController {
                 break;
             case "/admin/category/edit":
                 try {
-                Long id = Long.valueOf(req.getParameter("id"));
-                CategoryDTO category = categoryService.findById(id);
-                req.setAttribute("category", category);
-                renderPage(req, resp, "/views/admin/category/form.jsp");
+                    Long id = Long.valueOf(req.getParameter("id"));
+                    CategoryDTO category = categoryService.findById(id);
+                    req.setAttribute("category", category);
+                    renderPage(req, resp, "/views/admin/category/form.jsp");
                 } catch (Exception e) {
                     resp.sendRedirect(req.getContextPath() + "/admin/category");
                 }

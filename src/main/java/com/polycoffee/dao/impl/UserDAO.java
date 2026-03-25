@@ -2,15 +2,28 @@ package com.polycoffee.dao.impl;
 
 import java.util.List;
 import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
 import com.polycoffee.dao.IUserDAO;
 import com.polycoffee.entity.Users;
 import com.polycoffee.utils.XJPA;
 
 public class UserDAO implements IUserDAO {
+
+    @Override
+    public Users findByUsername(String username) {
+        EntityManager em = XJPA.createEntityManager();
+        try {
+            String jpql = "SELECT u FROM Users u WHERE u.username = :uname AND u.active = true";
+            TypedQuery<Users> query = em.createQuery(jpql, Users.class);
+            query.setParameter("uname", username);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     @Override
     public List<Users> findAll() {
@@ -81,4 +94,3 @@ public class UserDAO implements IUserDAO {
         }
     }
 }
-
