@@ -26,26 +26,26 @@ public class UserService {
 
     public void create(UserDTO dto, String password) {
         Users u = Users.builder()
-                .username(dto.username())
-                .fullname(dto.fullname())
-                .email(dto.email())
-                .phone(dto.phone())
-                .role(dto.role())
-                .active(dto.active())
+                .username(dto.getUsername())
+                .fullname(dto.getFullname())
+                .email(dto.getEmail())
+                .phone(dto.getPhone())
+                .role(dto.getRole())
+                .active(dto.isActive())
                 .password(password)
                 .build();
         userDAO.create(u);
     }
 
     public void update(UserDTO dto) {
-        Users existing = userDAO.findById(dto.id());
+        Users existing = userDAO.findById(dto.getId());
         if (existing != null) {
-            existing.setUsername(dto.username());
-            existing.setFullname(dto.fullname());
-            existing.setEmail(dto.email());
-            existing.setPhone(dto.phone());
-            existing.setRole(dto.role());
-            existing.setActive(dto.active());
+            existing.setUsername(dto.getUsername());
+            existing.setFullname(dto.getFullname());
+            existing.setEmail(dto.getEmail());
+            existing.setPhone(dto.getPhone());
+            existing.setRole(dto.getRole());
+            existing.setActive(dto.isActive());
             userDAO.update(existing);
         }
     }

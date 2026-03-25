@@ -1,4 +1,4 @@
-package com.polycoffee.controller;
+package com.polycoffee.controller.manage;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.polycoffee.controller.LayoutController;
 import com.polycoffee.dto.UserDTO;
 import com.polycoffee.enums.UserRole;
 import com.polycoffee.service.UserService;
@@ -24,23 +25,32 @@ public class UserController extends LayoutController {
 
         switch (path) {
             case "/admin/user/create":
+                req.setAttribute("title", "Thêm Người Dùng Mới");
                 renderPage(req, resp, "/views/admin/user/form.jsp");
                 break;
             case "/admin/user/edit":
-                UUID id = UUID.fromString(req.getParameter("id"));
-                UserDTO user = userService.findById(id);
-                req.setAttribute("user", user);
-                renderPage(req, resp, "/views/admin/user/form.jsp");
+                try {
+                    UUID id = UUID.fromString(req.getParameter("id"));
+                    UserDTO user = userService.findById(id);
+                    req.setAttribute("user", user);
+                    req.setAttribute("title", "Chỉnh Sửa Người Dùng");
+                    renderPage(req, resp, "/views/admin/user/form.jsp");
+                } catch (Exception e) {
+                    resp.sendRedirect(req.getContextPath() + "/admin/user");
+                }
                 break;
             case "/admin/user/delete":
-                UUID deleteId = UUID.fromString(req.getParameter("id"));
-                userService.delete(deleteId);
+                try {
+                    UUID deleteId = UUID.fromString(req.getParameter("id"));
+                    userService.delete(deleteId);
+                } catch (Exception e) {}
                 resp.sendRedirect(req.getContextPath() + "/admin/user");
                 break;
             default:
             case "/admin/user":
                 List<UserDTO> list = userService.findAll();
                 req.setAttribute("users", list);
+                req.setAttribute("title", "Quản Lý Người Dùng");
                 renderPage(req, resp, "/views/admin/user/index.jsp");
                 break;
         }

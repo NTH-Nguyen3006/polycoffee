@@ -26,17 +26,17 @@ public class CategoryService {
 
     public void create(CategoryDTO dto) {
         Categories c = Categories.builder()
-                .name(dto.name())
-                .description(dto.description())
+                .name(dto.getName())
+                .description(dto.getDescription())
                 .build();
         categoryDAO.create(c);
     }
 
     public void update(CategoryDTO dto) {
-        Categories existing = categoryDAO.findById(dto.id());
+        Categories existing = categoryDAO.findById(dto.getId());
         if (existing != null) {
-            existing.setName(dto.name());
-            existing.setDescription(dto.description());
+            existing.setName(dto.getName());
+            existing.setDescription(dto.getDescription());
             categoryDAO.update(existing);
         }
     }

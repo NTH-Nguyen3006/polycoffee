@@ -5,13 +5,22 @@ import java.util.UUID;
 
 import com.polycoffee.enums.UserRole;
 
-public record UserDTO(
-    UUID id,
-    String username,
-    String fullname,
-    String email,
-    String phone,
-    UserRole role,
-    boolean active,
-    LocalDateTime createdAt
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UserDTO {
+    private UUID id;
+    private String username;
+    private String fullname;
+    private String email;
+    private String phone;
+    private UserRole role;
+    private boolean active;
+    private LocalDateTime createdAt;
+}
