@@ -2,6 +2,7 @@ package com.polycoffee.dao.impl;
 
 import java.util.List;
 import java.util.UUID;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -93,4 +94,17 @@ public class ProductsDAOImpl implements IProductsDao {
             em.close();
         }
     }
+
+    @Override
+    public List<Products> findByName(String name) {
+    EntityManager em = XJPA.createEntityManager();
+    try {
+        String jpql = "SELECT p FROM Products p WHERE p.name LIKE :name";
+        TypedQuery<Products> query = em.createQuery(jpql, Products.class);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    } finally {
+        em.close();
+    }
+}
 }
