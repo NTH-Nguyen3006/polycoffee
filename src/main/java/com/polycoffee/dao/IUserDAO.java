@@ -6,6 +6,8 @@ import com.polycoffee.entity.Users;
 public interface IUserDAO extends ICRUD<UUID, Users> {
     Users findByUsername(String username);
 
+    Users findByEmail(String email);
+
     default Users findById(String id) {
         return findById(UUID.fromString(id));
     }
