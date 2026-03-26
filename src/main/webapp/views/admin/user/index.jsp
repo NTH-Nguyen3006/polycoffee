@@ -22,22 +22,22 @@
                     <tbody>
                         <c:forEach var="item" items="${users}">
                             <tr>
-                                <td>${item.username()}</td>
-                                <td>${item.fullname()}</td>
-                                <td>${item.email()}</td>
-                                <td>${item.phone()}</td>
+                                <td>${item.username}</td>
+                                <td>${item.fullname}</td>
+                                <td>${item.email}</td>
+                                <td>${item.phone}</td>
                                 <td>
-                                    <span class="badge bg-secondary">${item.role()}</span>
+                                    <span class="badge bg-secondary">${item.role}</span>
                                 </td>
                                 <td>
-                                    <c:if test="${item.active()}"><span class="badge bg-success">Active</span></c:if>
-                                    <c:if test="${not item.active()}"><span class="badge bg-danger">Inactive</span>
+                                    <c:if test="${item.active}"><span class="badge bg-success">Active</span></c:if>
+                                    <c:if test="${not item.active}"><span class="badge bg-danger">Inactive</span>
                                     </c:if>
                                 </td>
                                 <td class="text-center">
-                                    <a href="${pageContext.request.contextPath}/admin/user/edit?id=${item.id()}"
+                                    <a href="${pageContext.request.contextPath}/admin/user/edit?id=${item.id}"
                                         class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
-                                    <a href="${pageContext.request.contextPath}/admin/user/delete?id=${item.id()}"
+                                    <a href="${pageContext.request.contextPath}/admin/user/delete?id=${item.id}"
                                         class="btn btn-sm btn-outline-danger"
                                         onclick="return confirm('Are you sure you want to delete this user?');"><i
                                             class="bi bi-trash"></i></a>

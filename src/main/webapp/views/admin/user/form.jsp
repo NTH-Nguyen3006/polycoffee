@@ -10,18 +10,18 @@
                         <form action="${pageContext.request.contextPath}/admin/user/${empty user ? 'create' : 'edit'}"
                             method="post">
                             <c:if test="${not empty user}">
-                                <input type="hidden" name="id" value="${user.id()}">
+                                <input type="hidden" name="id" value="${user.id}">
                             </c:if>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Username</label>
-                                    <input type="text" class="form-control" name="username" value="${user.username()}"
+                                    <input type="text" class="form-control" name="username" value="${user.username}"
                                         required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" name="fullname" value="${user.fullname()}"
+                                    <input type="text" class="form-control" name="fullname" value="${user.fullname}"
                                         required>
                                 </div>
                             </div>
@@ -29,12 +29,12 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" value="${user.email()}"
+                                    <input type="email" class="form-control" name="email" value="${user.email}"
                                         required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="phone" value="${user.phone()}">
+                                    <input type="text" class="form-control" name="phone" value="${user.phone}">
                                 </div>
                             </div>
 
@@ -42,9 +42,9 @@
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Role</label>
                                     <select class="form-select" name="role">
-                                        <option value="USER" ${user.role()=='USER' ? 'selected' : '' }>User</option>
-                                        <option value="ADMIN" ${user.role()=='ADMIN' ? 'selected' : '' }>Admin</option>
-                                        <option value="EMPLOYEE" ${user.role()=='EMPLOYEE' ? 'selected' : '' }>Employee
+                                        <option value="USER" ${user.role=='USER' ? 'selected' : '' }>User</option>
+                                        <option value="ADMIN" ${user.role=='ADMIN' ? 'selected' : '' }>Admin</option>
+                                        <option value="EMPLOYEE" ${user.role=='EMPLOYEE' ? 'selected' : '' }>Employee
                                         </option>
                                     </select>
                                 </div>
@@ -52,7 +52,7 @@
                                     <label class="form-label">Status</label>
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="checkbox" name="active" id="activeCheck"
-                                            ${empty user or user.active() ? 'checked' : '' }>
+                                            ${empty user or user.active ? 'checked' : '' }>
                                         <label class="form-check-label" for="activeCheck">Active Account</label>
                                     </div>
                                 </div>
