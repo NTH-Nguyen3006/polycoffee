@@ -26,6 +26,21 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
+    public Users findByEmail(String email) {
+        EntityManager em = XJPA.createEntityManager();
+        try {
+            String jpql = "SELECT u FROM Users u WHERE u.email = :email AND u.active = true";
+            TypedQuery<Users> query = em.createQuery(jpql, Users.class);
+            query.setParameter("email", email);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
     public List<Users> findAll() {
         EntityManager em = XJPA.createEntityManager();
         try {
