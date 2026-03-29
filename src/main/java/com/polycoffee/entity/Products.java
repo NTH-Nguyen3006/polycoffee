@@ -42,11 +42,13 @@ public class Products {
     @JoinColumn(name = "category_id")
     Categories category;
 
+    @Column(columnDefinition = "NVARCHAR(30)", nullable = false)
     String name;
 
     @Column(name = "base_price")
     BigDecimal basePrice;
 
+    @Column(columnDefinition = "NVARCHAR(100)")
     String description;
 
     @Column(name = "thumbnail_url")

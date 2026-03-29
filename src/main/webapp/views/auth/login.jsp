@@ -45,16 +45,14 @@
                                 Ghi nhớ tôi
                             </label>
                         </div>
-                        <a href="#" class="text-decoration-none small fw-medium text-primary">Quên mật khẩu?</a>
+                        <a href="${pageContext.request.contextPath}/forgot-password" class="text-decoration-none small fw-medium text-primary">Quên mật khẩu?</a>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 shadow text-uppercase fw-bold mb-4">
                         Đăng nhập ngay
                     </button>
 
-                    <p class="text-center text-muted small mb-0">
-                        Chưa có tài khoản? <a href="#" class="text-decoration-none fw-bold text-primary ms-1">Đăng ký thành viên</a>
-                    </p>
+                        Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register" class="text-decoration-none fw-bold text-primary ms-1">Đăng ký thành viên</a>
                 </form>
             </div>
         </div>

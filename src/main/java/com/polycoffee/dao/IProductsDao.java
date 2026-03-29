@@ -9,6 +9,11 @@ public interface IProductsDao extends ICRUD<UUID, Products> {
     List<Products> findByCategoryId(Long categoryId);
 
     List<Products> findByName(String name);
+
+    List<Products> searchAndPaginate(String name, Long categoryId, Boolean available, int page, int pageSize);
+
+    long countSearch(String name, Long categoryId, Boolean available);
+
     default Products findById(String id) {
         return findById(UUID.fromString(id));
     }

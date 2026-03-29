@@ -60,6 +60,12 @@ public class Users {
     @Column(name = "is_active", columnDefinition = "BIT DEFAULT 1")
     boolean active;
 
+    @Column(name = "reset_token")
+    String resetToken;
+
+    @Column(name = "reset_token_expiry")
+    LocalDateTime resetTokenExpiry;
+
     @CreationTimestamp
     @Column(name = "create_at", updatable = false) // Khớp với create_at trong SQL
     LocalDateTime createdAt;

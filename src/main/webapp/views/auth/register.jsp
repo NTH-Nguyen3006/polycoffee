@@ -1,0 +1,88 @@
+<%@page pageEncoding="utf-8" isELIgnored="false" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 120px);">
+    <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 900px; overflow: hidden;">
+        <div class="row g-0">
+            <!-- Cột hình ảnh (Ẩn trên màn hình nhỏ, hiện trên md trở lên) -->
+            <div class="col-md-5 d-none d-md-block">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop" 
+                     alt="Polycoffee Register" class="img-fluid h-100 object-fit-cover w-100">
+            </div>
+            
+            <!-- Cột Form đăng ký -->
+            <div class="col-md-7 p-4 p-md-5 d-flex flex-column justify-content-center bg-white">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-light text-primary rounded-circle shadow-sm mb-3" style="width: 70px; height: 70px;">
+                        <i class="bi bi-person-plus-fill fs-2"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">Poly<span class="text-primary">coffee</span></h3>
+                    <p class="text-muted small">Tham gia cộng đồng để nhận nhiều ưu đãi</p>
+                </div>
+
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger d-flex align-items-center mb-4 py-2 border-0 shadow-sm" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div class="small fw-medium">${error}</div>
+                    </div>
+                </c:if>
+                <c:if test="${not empty message}">
+                    <div class="alert alert-success d-flex align-items-center mb-4 py-2 border-0 shadow-sm" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div class="small fw-medium">${message}</div>
+                    </div>
+                </c:if>
+
+                <form action="${pageContext.request.contextPath}/register" method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control shadow-none bg-light border-0" id="username" name="username" placeholder="Username" required value="${param.username}">
+                                <label for="username" class="text-muted"><i class="bi bi-person-fill me-2"></i>Tên đăng nhập</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control shadow-none bg-light border-0" id="fullname" name="fullname" placeholder="Fullname" required value="${param.fullname}">
+                                <label for="fullname" class="text-muted"><i class="bi bi-card-text me-2"></i>Họ và tên</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control shadow-none bg-light border-0" id="email" name="email" placeholder="Email" required value="${param.email}">
+                        <label for="email" class="text-muted"><i class="bi bi-envelope-fill me-2"></i>Email</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control shadow-none bg-light border-0" id="phone" name="phone" placeholder="Phone" required value="${param.phone}">
+                        <label for="phone" class="text-muted"><i class="bi bi-phone-fill me-2"></i>Số điện thoại</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="password" class="form-control shadow-none bg-light border-0" id="password" name="password" placeholder="Password" required>
+                                <label for="password" class="text-muted"><i class="bi bi-lock-fill me-2"></i>Mật khẩu</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="password" class="form-control shadow-none bg-light border-0" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                                <label for="confirmPassword" class="text-muted"><i class="bi bi-shield-lock-fill me-2"></i>Xác nhận</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 shadow text-uppercase fw-bold mb-4 mt-2">
+                        Đăng ký tài khoản
+                    </button>
+
+                    <p class="text-center text-muted small mb-0">
+                        Đã có tài khoản? <a href="${pageContext.request.contextPath}/login" class="text-decoration-none fw-bold text-primary ms-1">Đăng nhập</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

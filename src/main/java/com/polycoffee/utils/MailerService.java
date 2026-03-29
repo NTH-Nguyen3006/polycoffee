@@ -5,8 +5,28 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 public class MailerService {
-    private static final String username = "your-email@gmail.com";
-    private static final String password = "xxxx xxxx xxxx xxxx";
+    private static final java.util.Properties config = new java.util.Properties();
+
+    static {
+        try (java.io.InputStream input = MailerService.class.getClassLoader()
+                .getResourceAsStream("config.properties")) {
+            if (input == null) {
+                System.err.println("Sorry, unable to find config.properties");
+            } else {
+                config.load(input);
+            }
+        } catch (java.io.IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static String getUsername() {
+        return config.getProperty("mail.username");
+    }
+
+    private static String getPassword() {
+        return config.getProperty("mail.password");
+    }
 
     public static void send(String to, String subject, String body) {
         Properties props = new Properties();
@@ -18,13 +38,13 @@ public class MailerService {
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(getUsername(), getPassword());
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
+            message.setFrom(new InternetAddress(getUsername()));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(body);

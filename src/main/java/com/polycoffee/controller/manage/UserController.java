@@ -14,7 +14,7 @@ import com.polycoffee.dto.UserDTO;
 import com.polycoffee.enums.UserRole;
 import com.polycoffee.service.UserService;
 
-@WebServlet({"/admin/user", "/admin/user/create", "/admin/user/edit", "/admin/user/delete"})
+@WebServlet({"/admin/user", "/admin/user/create", "/admin/user/edit", "/admin/user/delete", "/admin/user/reset-password"})
 public class UserController extends LayoutController {
 
     private final UserService userService = new UserService();
@@ -46,13 +46,46 @@ public class UserController extends LayoutController {
                 } catch (Exception e) {}
                 resp.sendRedirect(req.getContextPath() + "/admin/user");
                 break;
+            case "/admin/user/reset-password":
+                try {
+                    UUID resetId = UUID.fromString(req.getParameter("id"));
+                    userService.resetPassword(resetId);
+                    req.getSession().setAttribute("message", "Mật khẩu cho nhân viên đã được cấp lại và gửi thông báo qua email.");
+                } catch (Exception e) {
+                    req.getSession().setAttribute("error", "Lỗi cấp lại mật khẩu: " + e.getMessage());
+                }
+                resp.sendRedirect(req.getContextPath() + "/admin/user");
+                break;
+
             default:
             case "/admin/user":
-                List<UserDTO> list = userService.findAll();
+                String name = req.getParameter("name");
+                String email = req.getParameter("email");
+                String activeStr = req.getParameter("active");
+                String pageStr = req.getParameter("page");
+
+                Boolean active = (activeStr != null && !activeStr.isEmpty()) ? Boolean.parseBoolean(activeStr) : null;
+                int page = (pageStr != null && !pageStr.isEmpty()) ? Integer.parseInt(pageStr) : 1;
+                int pageSize = 10;
+
+                List<UserDTO> list = userService.searchAndPaginate(name, email, active, page, pageSize);
+                long totalItems = userService.countSearch(name, email, active);
+                int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+
                 req.setAttribute("users", list);
+                req.setAttribute("currentPage", page);
+                req.setAttribute("totalPages", totalPages);
+                req.setAttribute("totalItems", totalItems);
+
+                // Keep search criteria
+                req.setAttribute("name", name);
+                req.setAttribute("email", email);
+                req.setAttribute("active", active);
+
                 req.setAttribute("title", "Quản Lý Người Dùng");
                 renderPage(req, resp, "/views/admin/user/index.jsp");
                 break;
+
         }
     }
 

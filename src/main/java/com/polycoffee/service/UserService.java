@@ -50,6 +50,29 @@ public class UserService {
         }
     }
 
+    public List<UserDTO> searchAndPaginate(String name, String email, Boolean active, int page, int pageSize) {
+        return userDAO.searchAndPaginate(name, email, active, page, pageSize).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public long countSearch(String name, String email, Boolean active) {
+        return userDAO.countSearch(name, email, active);
+    }
+
+    public void resetPassword(UUID id) {
+        Users u = userDAO.findById(id);
+        if (u != null) {
+            String newPass = Long.toHexString(Double.doubleToLongBits(Math.random())).substring(0, 8);
+            u.setPassword(newPass);
+            userDAO.update(u);
+            
+            String subject = "Mật khẩu mới đã được cấp lại - PolyCoffee";
+            String body = String.format("Chào %s,\n\nMật khẩu của bạn đã được quản trị viên đặt lại.\nMật khẩu mới là: %s\n\nVui lòng đăng nhập và đổi mật khẩu ngay.", u.getFullname(), newPass);
+            com.polycoffee.utils.MailerService.send(u.getEmail(), subject, body);
+        }
+    }
+
     public void delete(UUID id) {
         userDAO.delete(id);
     }

@@ -7,11 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet({ "/", "/home", "/about", "/contact" })
 public class HomeController extends LayoutController {
 
-private com.polycoffee.dao.IProductsDao productDao = new com.polycoffee.dao.impl.ProductsDAOImpl();
+    // private com.polycoffee.dao.IProductsDao productDao = new
+    // com.polycoffee.dao.impl.ProductsDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

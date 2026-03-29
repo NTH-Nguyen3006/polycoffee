@@ -107,4 +107,70 @@ public class ProductsDAOImpl implements IProductsDao {
         em.close();
     }
 }
+    @Override
+    public List<Products> searchAndPaginate(String name, Long categoryId, Boolean available, int page, int pageSize) {
+        EntityManager em = XJPA.createEntityManager();
+        try {
+            StringBuilder jpql = new StringBuilder("SELECT p FROM Products p WHERE 1=1");
+            if (name != null && !name.isEmpty()) {
+                jpql.append(" AND p.name LIKE :name");
+            }
+            if (categoryId != null) {
+                jpql.append(" AND p.category.id = :categoryId");
+            }
+            if (available != null) {
+                jpql.append(" AND p.available = :available");
+            }
+
+            TypedQuery<Products> query = em.createQuery(jpql.toString(), Products.class);
+            if (name != null && !name.isEmpty()) {
+                query.setParameter("name", "%" + name + "%");
+            }
+            if (categoryId != null) {
+                query.setParameter("categoryId", categoryId);
+            }
+            if (available != null) {
+                query.setParameter("available", available);
+            }
+
+            query.setFirstResult((page - 1) * pageSize);
+            query.setMaxResults(pageSize);
+
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public long countSearch(String name, Long categoryId, Boolean available) {
+        EntityManager em = XJPA.createEntityManager();
+        try {
+            StringBuilder jpql = new StringBuilder("SELECT COUNT(p) FROM Products p WHERE 1=1");
+            if (name != null && !name.isEmpty()) {
+                jpql.append(" AND p.name LIKE :name");
+            }
+            if (categoryId != null) {
+                jpql.append(" AND p.category.id = :categoryId");
+            }
+            if (available != null) {
+                jpql.append(" AND p.available = :available");
+            }
+
+            TypedQuery<Long> query = em.createQuery(jpql.toString(), Long.class);
+            if (name != null && !name.isEmpty()) {
+                query.setParameter("name", "%" + name + "%");
+            }
+            if (categoryId != null) {
+                query.setParameter("categoryId", categoryId);
+            }
+            if (available != null) {
+                query.setParameter("available", available);
+            }
+
+            return query.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
 }

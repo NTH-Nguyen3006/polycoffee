@@ -1,3 +1,22 @@
-/target
-/.vscode
-*.xml
+# Compilation outputs
+/target/
+*.class
+
+# IDE specific files
+/.vscode/
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Dependency directories
+/node_modules/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Sensitive credentials and configuration
+src/main/resources/META-INF/persistence.xml
+config.properties
+.env
