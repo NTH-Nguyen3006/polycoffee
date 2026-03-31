@@ -1,4 +1,6 @@
 <%@page pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -39,7 +41,7 @@
 
     <jsp:include page="/views/partials/header.jsp" />
 
-    <main class="container-fluid py-4 fade-in" style="min-height: 80vh;">
+    <main class="${fn:contains(view, '/admin/') ? 'container' : 'container-fluid'} py-4 fade-in" style="min-height: 80vh;">
         <jsp:include page="${view}" />
     </main>
 

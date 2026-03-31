@@ -1,5 +1,5 @@
 <%@page pageEncoding="utf-8" isELIgnored="false" %>
-    <div class="container mt-4">
+    <div class="mt-4">
         <div class="row mb-4">
             <div class="col">
                 <h1 class="display-4 fw-bold text-dark"><i class="bi bi-speedometer2"></i> Admin Dashboard</h1>
@@ -100,6 +100,22 @@
                         <p class="card-text text-muted small">Theo dõi giao dịch & hóa đơn.</p>
                         <a href="${pageContext.request.contextPath}/admin/payment"
                             class="btn btn-outline-dark stretched-link mt-auto">Truy cập</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                            style="width: 64px; height: 64px;">
+                            <i class="bi bi-bar-chart-line fs-2"></i>
+                        </div>
+                        <h3 class="card-title h5 mb-3">Thống Kê</h3>
+                        <p class="card-text text-muted small">Doanh thu & top sản phẩm bán chạy.</p>
+                        <a href="${pageContext.request.contextPath}/admin/statistics"
+                            class="btn btn-outline-primary stretched-link mt-auto">Truy cập</a>
                     </div>
                 </div>
             </div>

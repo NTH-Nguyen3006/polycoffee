@@ -68,6 +68,12 @@
                                             test="${sessionScope.user.role == 'ADMIN' or sessionScope.user.role == 'EMPLOYEE'}">
                                             <li><a class="dropdown-item py-2" href="${contextPath}/admin/dashboard"><i
                                                         class="bi bi-speedometer2 me-2"></i> Quản trị</a></li>
+                                            <li><a class="dropdown-item py-2" href="${contextPath}/admin/order"><i
+                                                        class="bi bi-receipt-cutoff me-2"></i> Đơn hàng</a></li>
+                                            <li><a class="dropdown-item py-2" href="${contextPath}/admin/statistics"><i
+                                                        class="bi bi-bar-chart-line me-2"></i> Thống kê</a></li>
+                                            <li><a class="dropdown-item py-2" href="${contextPath}/admin/promotion"><i
+                                                        class="bi bi-percent me-2"></i> Khuyến mãi</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
