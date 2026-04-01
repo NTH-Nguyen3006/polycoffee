@@ -17,6 +17,6 @@
 Thumbs.db
 
 # Sensitive credentials and configuration
-src/main/resources/META-INF/persistence.xml
+# src/main/resources/META-INF/persistence.xml
 config.properties
 .env
