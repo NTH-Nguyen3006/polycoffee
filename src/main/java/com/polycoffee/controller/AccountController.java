@@ -3,7 +3,6 @@ package com.polycoffee.controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -67,7 +66,8 @@ public class AccountController extends LayoutController {
                 user.setResetTokenExpiry(java.time.LocalDateTime.now().plusMinutes(30));
                 dao.update(user);
 
-                String resetUrl = req.getRequestURL().toString().replace("forgot-password", "reset-password") + "?token="
+                String resetUrl = req.getRequestURL().toString().replace("forgot-password", "reset-password")
+                        + "?token="
                         + token;
 
                 String subject = "Đặt lại mật khẩu - PolyCoffee";
