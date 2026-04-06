@@ -35,9 +35,6 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     Products product;
 
-    @Column(name = "product_name")
-    String productName;
-
     Integer quantity;
 
     BigDecimal price;

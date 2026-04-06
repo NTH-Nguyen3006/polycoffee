@@ -42,7 +42,7 @@ public class Products {
     @JoinColumn(name = "category_id")
     Categories category;
 
-    @Column(columnDefinition = "NVARCHAR(30)", nullable = false)
+    @Column(columnDefinition = "NVARCHAR(50)", nullable = false)
     String name;
 
     @Column(name = "base_price")

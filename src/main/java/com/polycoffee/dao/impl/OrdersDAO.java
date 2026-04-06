@@ -180,7 +180,7 @@ public class OrdersDAO implements IOrdersDAO {
         EntityManager em = XJPA.createEntityManager();
         try {
             StringBuilder jpql = new StringBuilder(
-                "SELECT oi.productName, SUM(oi.quantity) as totalQty, SUM(oi.price * oi.quantity) as totalRevenue " +
+                "SELECT oi.product.name, SUM(oi.quantity), SUM(oi.price * oi.quantity) " +
                 "FROM OrderItem oi JOIN oi.order o " +
                 "WHERE o.status <> 'CANCELLED'");
             if (from != null) {
@@ -189,7 +189,7 @@ public class OrdersDAO implements IOrdersDAO {
             if (to != null) {
                 jpql.append(" AND o.createdAt <= :to");
             }
-            jpql.append(" GROUP BY oi.productName ORDER BY totalQty DESC");
+            jpql.append(" GROUP BY oi.product.id, oi.product.name ORDER BY SUM(oi.quantity) DESC");
 
             TypedQuery<Object[]> query = em.createQuery(jpql.toString(), Object[].class);
             if (from != null) {

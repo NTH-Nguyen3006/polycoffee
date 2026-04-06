@@ -69,8 +69,8 @@ public class ProductController extends LayoutController {
                 String availStr = req.getParameter("available");
                 String pageStr = req.getParameter("page");
 
-                long categoryId = (catIdStr != null && !catIdStr.isEmpty()) ? Long.parseLong(catIdStr) : null;
-                boolean available = (availStr != null && !availStr.isEmpty()) ? Boolean.parseBoolean(availStr) : null;
+                Long categoryId = (catIdStr != null && !catIdStr.isEmpty()) ? Long.parseLong(catIdStr) : null;
+                Boolean available = (availStr != null && !availStr.isEmpty()) ? Boolean.parseBoolean(availStr) : null;
                 int page = (pageStr != null && !pageStr.isEmpty()) ? Integer.parseInt(pageStr) : 1;
                 int pageSize = 10;
 
