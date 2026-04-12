@@ -18,13 +18,13 @@
     <c:remove var="error" scope="session"/>
 </c:if>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
     <div>
         <h1 class="h3 fw-bold mb-1"><i class="bi bi-cup-hot-fill me-2" style="color:#198754;"></i>Quản Lý Sản Phẩm</h1>
         <p class="text-muted mb-0">Quản lý các loại đồ uống, thức ăn và cập nhật trạng thái bán.</p>
     </div>
-    <a href="${pageContext.request.contextPath}/admin/product/create" class="btn fw-bold px-4 rounded-pill text-white" style="background:linear-gradient(135deg, #198754, #146c43);">
-        <i class="bi bi-plus-circle me-1"></i>Thêm Sản Phẩm Mới
+    <a href="${pageContext.request.contextPath}/admin/product/create" class="btn fw-bold px-4 rounded-pill text-white shadow-sm" style="background:linear-gradient(135deg, #198754, #146c43); min-width: fit-content;">
+        <i class="bi bi-plus-circle me-1"></i>Thêm Sản Phẩm
     </a>
 </div>
 
@@ -33,14 +33,14 @@
     <div class="card-body p-4 bg-white rounded-4">
         <form action="${pageContext.request.contextPath}/admin/product" method="get">
             <div class="row g-3 align-items-end">
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-6">
                     <label class="form-label small fw-bold text-uppercase text-muted">
                         <i class="bi bi-search me-1"></i>Tìm theo tên
                     </label>
                     <input type="text" class="form-control rounded-3" name="name"
                            value="${name}" placeholder="Nhập tên đồ uống...">
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-3 col-md-6">
                     <label class="form-label small fw-bold text-uppercase text-muted">
                         <i class="bi bi-tag me-1"></i>Lọc theo nhóm
                     </label>
@@ -54,7 +54,7 @@
                         </c:forEach>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-lg-3 col-md-6">
                     <label class="form-label small fw-bold text-uppercase text-muted">
                         <i class="bi bi-filter-circle me-1"></i>Trạng thái
                     </label>
@@ -64,11 +64,11 @@
                         <option value="false" <c:if test="${available == false}">selected</c:if>>Ngừng bán</option>
                     </select>
                 </div>
-                <div class="col-md-2 d-flex gap-2">
+                <div class="col-lg-2 col-md-6 d-flex gap-2">
                     <button type="submit" class="btn text-white w-100 rounded-3" style="background-color: #6f4e37;">
-                        <i class="bi bi-search me-1"></i>Tìm
+                        <i class="bi bi-search me-1"></i>Lọc
                     </button>
-                    <a href="${pageContext.request.contextPath}/admin/product" class="btn btn-light rounded-3 px-3">
+                    <a href="${pageContext.request.contextPath}/admin/product" class="btn btn-light border rounded-3 px-3">
                         <i class="bi bi-arrow-clockwise"></i>
                     </a>
                 </div>
@@ -109,7 +109,7 @@
                                     <div class="rounded-3 overflow-hidden shadow-sm border border-light" style="width:52px;height:52px;background:#f8f9fa;">
                                         <c:choose>
                                             <c:when test="${not empty item.thumbnailUrl}">
-                                                <img src="${item.thumbnailUrl}" alt="${item.name}"
+                                                <img src="${pageContext.request.contextPath}/uploads/images/${item.thumbnailUrl}" alt="${item.name}"
                                                      onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=150&h=150&auto=format&fit=crop'"
                                                      style="width:100%;height:100%;object-fit:cover;">
                                             </c:when>

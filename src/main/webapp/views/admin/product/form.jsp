@@ -86,7 +86,7 @@
                                                     style="${empty product.thumbnailUrl ? 'display:none;' : ''}">
                                                     <label class="form-label fw-semibold">Xem trước ảnh</label>
                                                     <div>
-                                                        <img id="previewImg" src="${product.thumbnailUrl}" alt="Preview"
+                                                        <img id="previewImg" src="${pageContext.request.contextPath}/uploads/images/${product.thumbnailUrl}" alt="Preview"
                                                             class="img-thumbnail"
                                                             style="max-height:160px;object-fit:cover;">
                                                     </div>
@@ -134,12 +134,12 @@
 
                                                         <%-- Buttons --%>
                                                             <div
-                                                                class="d-flex gap-2 justify-content-end border-top pt-3">
+                                                                class="d-flex flex-column flex-sm-row gap-2 justify-content-sm-end border-top pt-3">
                                                                 <a href="${pageContext.request.contextPath}/admin/product"
-                                                                    class="btn btn-outline-secondary">
+                                                                    class="btn btn-outline-secondary order-2 order-sm-1">
                                                                     <i class="bi bi-arrow-left me-1"></i>Hủy
                                                                 </a>
-                                                                <button type="submit" class="btn btn-primary">
+                                                                <button type="submit" class="btn btn-primary order-1 order-sm-2">
                                                                     <i class="bi bi-save me-1"></i>
                                                                     ${empty product ? 'Thêm sản phẩm' : 'Lưu thay đổi'}
                                                                 </button>
@@ -157,7 +157,11 @@
                     const box = document.getElementById('previewBox');
                     const img = document.getElementById('previewImg');
                     if (url && url.trim() !== '') {
-                        img.src = url;
+                        if (!url.startsWith('http')) {
+                            img.src = '${pageContext.request.contextPath}/uploads/images/' + url;
+                        } else {
+                            img.src = url;
+                        }
                         box.style.display = '';
                         img.onerror = () => { box.style.display = 'none'; };
                     } else {

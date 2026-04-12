@@ -1,6 +1,7 @@
 <%@ page pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"      prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"       prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <style>
 /* ─── Layout ─── */
@@ -16,8 +17,19 @@
     overflow: hidden;
 }
 @media (max-width: 991px) {
-    .cart-sidebar { display: none; }
-    .menu-left { padding: 20px; }
+    .cart-sidebar {
+        display: none;
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1060; /* Higher than navbar */
+        width: 100% !important;
+        max-width: 320px;
+        height: 100vh;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+    }
+    .menu-left { padding: 20px 16px; }
 }
 
 /* ─── Page title ─── */
@@ -226,12 +238,12 @@
     <div class="menu-left">
 
         <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
             <div class="menu-title">
                 <i class="bi bi-cup-hot-fill" style="color:#e8821c;"></i>
                 Thực Đơn
             </div>
-            <div class="search-wrap">
+            <div class="search-wrap w-100" style="max-width: 400px;">
                 <i class="bi bi-search search-icon"></i>
                 <input type="text" class="search-input" id="searchInput"
                        placeholder="Tìm đồ uống..." value="${keywords}"
@@ -257,7 +269,7 @@
         <div class="results-count" id="resultCount">
             <c:choose>
                 <c:when test="${not empty productList}">
-                    Hiển thị <strong>${productList.size()}</strong> sản phẩm
+                    Hiển thị <strong>${fn:length(productList)}</strong> sản phẩm
                     <c:if test="${not empty keywords}"> cho "<strong>${keywords}</strong>"</c:if>
                 </c:when>
                 <c:otherwise>Không tìm thấy sản phẩm</c:otherwise>
@@ -280,7 +292,7 @@
                                 <c:choose>
                                     <c:when test="${not empty p.thumbnailUrl}">
                                         <img class="product-img"
-                                             src="${pageContext.request.contextPath}/uploads/${p.thumbnailUrl}"
+                                             src="${pageContext.request.contextPath}/uploads/images/${p.thumbnailUrl}"
                                              alt="${p.name}"
                                              onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=400&h=300&auto=format&fit=crop'">
                                     </c:when>
@@ -326,9 +338,10 @@
 
     <!-- ═══════════ RIGHT: Cart Sidebar ═══════════ -->
     <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h5><i class="bi bi-bag-heart-fill me-2" style="color:#e8821c;"></i>Đơn Của Bạn</h5>
-            <small class="text-muted" id="cartItemCount">Giỏ trống</small>
+        <div class="cart-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-bag-heart-fill me-2" style="color:#e8821c;"></i>Đơn Của Bạn</h5>
+            <button class="btn-close d-lg-none" onclick="toggleMobileCart()"></button>
+            <small class="text-muted d-none d-lg-block" id="cartItemCount">Giỏ trống</small>
         </div>
 
         <div class="cart-body" id="cartBody">
@@ -499,26 +512,26 @@ function renderCart() {
     itemsEl.innerHTML = '';
     cart.forEach(item => {
         const imgSrc = item.img
-            ? cp + '/uploads/' + item.img
+            ? cp + '/uploads/images/' + item.img
             : 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=100&h=100&auto=format&fit=crop';
 
         const el = document.createElement('div');
         el.className = 'cart-item';
         el.innerHTML = `
-            <img class="cart-item-img" src="${imgSrc}"
+            <img class="cart-item-img" src="\${imgSrc}"
                  onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=100&h=100&auto=format&fit=crop'"
-                 alt="${item.name}">
+                 alt="\${item.name}">
             <div style="flex:1;min-width:0;">
-                <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">${formatVND(item.price)}</div>
+                <div class="cart-item-name">\${item.name}</div>
+                <div class="cart-item-price">\${formatVND(item.price)}</div>
                 <div class="qty-ctrl">
-                    <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
-                    <span class="qty-num">${item.qty}</span>
-                    <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
-                    <span class="ms-auto text-muted" style="font-size:0.8rem;font-weight:700;">${formatVND(item.price * item.qty)}</span>
+                    <button class="qty-btn" onclick="changeQty('\${item.id}',-1)">−</button>
+                    <span class="qty-num">\${item.qty}</span>
+                    <button class="qty-btn" onclick="changeQty('\${item.id}',1)">+</button>
+                    <span class="ms-auto text-muted" style="font-size:0.8rem;font-weight:700;">\${formatVND(item.price * item.qty)}</span>
                 </div>
             </div>
-            <button class="delete-item" onclick="removeItem('${item.id}')" title="Xoá">
+            <button class="delete-item" onclick="removeItem('\${item.id}')" title="Xoá">
                 <i class="bi bi-x-lg"></i>
             </button>
         `;
@@ -536,8 +549,8 @@ function checkout() {
 
     summaryEl.innerHTML = cart.map(i => `
         <div class="d-flex justify-content-between py-2 border-bottom" style="font-size:0.88rem;">
-            <span>${i.name} <span class="badge bg-light text-dark ms-1">×${i.qty}</span></span>
-            <span class="fw-semibold">${formatVND(i.price * i.qty)}</span>
+            <span>\${i.name} <span class="badge bg-light text-dark ms-1">×\${i.qty}</span></span>
+            <span class="fw-semibold">\${formatVND(i.price * i.qty)}</span>
         </div>
     `).join('');
 
@@ -573,13 +586,15 @@ function confirmOrder() {
 // ─── Mobile cart toggle ───────────────────────────
 function toggleMobileCart() {
     const sidebar = document.getElementById('cartSidebar');
-    sidebar.style.display = sidebar.style.display === 'flex' ? 'none' : 'flex';
-    sidebar.style.position = 'fixed';
-    sidebar.style.right = '0';
-    sidebar.style.top = '0';
-    sidebar.style.bottom = '0';
-    sidebar.style.zIndex = '1040';
-    sidebar.style.width = '320px';
+    const isVisible = window.getComputedStyle(sidebar).display !== 'none';
+    
+    if (!isVisible) {
+        sidebar.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scroll
+    } else {
+        sidebar.style.display = ''; // Reset to CSS default
+        document.body.style.overflow = '';
+    }
 }
 
 // ─── Live search ─────────────────────────────────

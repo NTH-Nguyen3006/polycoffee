@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.polycoffee.dao.impl.ProductsDAOImpl;
 import com.polycoffee.entity.Products;
 
-@WebServlet({ "/", "/home", "/about", "/contact" })
+@WebServlet({ "", "/home", "/about", "/contact" })
 public class HomeController extends LayoutController {
 
     private final ProductsDAOImpl productsDAO = new ProductsDAOImpl();
