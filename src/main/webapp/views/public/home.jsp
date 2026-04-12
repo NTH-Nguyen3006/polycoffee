@@ -769,71 +769,7 @@
                 </div>
             </section>
 
-            <!-- ========== TESTIMONIALS ========== -->
-            <section class="testimonials-section py-6 fade-in-section" style="padding:96px 0;">
-                <div class="container" style="position:relative;z-index:2;">
-                    <div class="text-center mb-5">
-                        <div class="section-badge"
-                            style="color:#f6c06e;border-color:rgba(246,192,110,0.4);background:rgba(246,192,110,0.1);">
-                            Khách Hàng Nói Gì
-                        </div>
-                        <h2 class="section-title" style="color:#fff;">Hàng Nghìn Khách Hàng<br>
-                            <span style="color:#f6c06e;">Tin Tưởng Chúng Tôi</span>
-                        </h2>
-                    </div>
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="testimonial-card">
-                                <div class="testimonial-stars mb-3">★★★★★</div>
-                                <p class="testimonial-text mb-4">"Cà phê ở đây thực sự tuyệt vời! Hương vị đậm đà, thơm
-                                    ngon.
-                                    Nhân viên phục vụ nhiệt tình và thân thiện. Tôi sẽ quay lại thường xuyên."</p>
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="https://i.pravatar.cc/150?img=1" alt="Nguyễn Văn A"
-                                        class="testimonial-avatar">
-                                    <div>
-                                        <div class="fw-bold text-white" style="font-size:14px;">Nguyễn Văn An</div>
-                                        <div style="color:rgba(255,255,255,0.5);font-size:12px;">Khách hàng thân thiết
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="testimonial-card">
-                                <div class="testimonial-stars mb-3">★★★★★</div>
-                                <p class="testimonial-text mb-4">"Không gian quán rất đẹp và ấm cúng. Menu đa dạng, phù
-                                    hợp
-                                    với mọi khẩu vị. Đặc biệt yêu thích ly Bạc Xỉu ở đây, không đâu ngon bằng!"</p>
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="https://i.pravatar.cc/150?img=5" alt="Trần Thị B"
-                                        class="testimonial-avatar">
-                                    <div>
-                                        <div class="fw-bold text-white" style="font-size:14px;">Trần Thị Bảo</div>
-                                        <div style="color:rgba(255,255,255,0.5);font-size:12px;">Học sinh FPT
-                                            Polytechnic</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="testimonial-card">
-                                <div class="testimonial-stars mb-3">★★★★★</div>
-                                <p class="testimonial-text mb-4">"Polycoffee là nơi tôi thường xuyên đến làm việc.
-                                    Wifi nhanh, đồ uống ngon, giá cả hợp lý. Barista ở đây tay nghề rất giỏi!"</p>
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="https://i.pravatar.cc/150?img=8" alt="Lê Minh C"
-                                        class="testimonial-avatar">
-                                    <div>
-                                        <div class="fw-bold text-white" style="font-size:14px;">Lê Minh Cường</div>
-                                        <div style="color:rgba(255,255,255,0.5);font-size:12px;">Khách hàng VIP</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
 
             <!-- ========== CTA SECTION ========== -->
             <section class="cta-section py-6 fade-in-section" style="padding:80px 0;">

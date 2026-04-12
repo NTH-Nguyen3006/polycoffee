@@ -17,7 +17,6 @@
     background: #fff; border-radius: 24px; padding: 32px;
     border: 1px solid #f0ebe4;
     box-shadow: 0 4px 20px rgba(107,58,31,0.06);
-    height: 100%;
 }
 .contact-icon-box {
     width: 56px; height: 56px; border-radius: 16px;
@@ -118,7 +117,7 @@
     <div class="container">
         <div class="row g-4 mb-5">
             <div class="col-md-4">
-                <div class="contact-info-card text-center">
+                <div class="contact-info-card h-100 text-center">
                     <div class="contact-icon-box mx-auto mb-3"
                          style="background:linear-gradient(135deg,rgba(232,137,28,0.15),rgba(212,113,42,0.1));width:64px;height:64px;border-radius:20px;">
                         <i class="bi bi-geo-alt-fill" style="font-size:1.6rem;color:#e8821c;"></i>
@@ -126,12 +125,12 @@
                     <h5 class="fw-bold mb-2" style="color:#1a0a00;">Địa Chỉ</h5>
                     <p class="text-muted mb-0" style="font-size:0.95rem;">
                         Trường FPT Polytechnic<br>
-                        Số 1, Hòa Lạc, Hà Nội
+                        thành phố HCM
                     </p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="contact-info-card text-center">
+                <div class="contact-info-card h-100 text-center">
                     <div class="contact-icon-box mx-auto mb-3"
                          style="background:linear-gradient(135deg,rgba(13,110,253,0.12),rgba(13,110,253,0.08));width:64px;height:64px;border-radius:20px;">
                         <i class="bi bi-telephone-fill" style="font-size:1.5rem;color:#0d6efd;"></i>
@@ -146,7 +145,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="contact-info-card text-center">
+                <div class="contact-info-card h-100 text-center">
                     <div class="contact-icon-box mx-auto mb-3"
                          style="background:linear-gradient(135deg,rgba(25,135,84,0.12),rgba(25,135,84,0.08));width:64px;height:64px;border-radius:20px;">
                         <i class="bi bi-envelope-fill" style="font-size:1.5rem;color:#198754;"></i>
@@ -252,8 +251,8 @@
                                                   color:rgba(255,255,255,0.6);">
                     <i class="bi bi-geo-alt-fill" style="font-size:3rem;color:#e8821c;margin-bottom:12px;"></i>
                     <div class="fw-semibold text-white">FPT Polytechnic</div>
-                    <small style="opacity:0.7;">Số 1, Hòa Lạc, Hà Nội</small>
-                    <a href="https://maps.google.com/?q=FPT+Polytechnic+Hoa+Lac" target="_blank"
+                    <small style="opacity:0.7;">thành phố HCM</small>
+                    <a href="https://maps.google.com/?q=FPT+Polytechnic+Ho+Chi+Minh" target="_blank"
                        class="mt-3 btn btn-sm btn-warning rounded-pill px-4 fw-semibold">
                         <i class="bi bi-map me-1"></i>Xem bản đồ
                     </a>

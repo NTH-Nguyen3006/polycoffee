@@ -156,7 +156,8 @@
                     transition: all 0.3s;
                 }
 
-                .pc-toggler:hover, .pc-toggler:focus {
+                .pc-toggler:hover,
+                .pc-toggler:focus {
                     background: rgba(255, 255, 255, 0.15);
                     border-color: rgba(255, 255, 255, 0.4);
                 }
@@ -170,10 +171,11 @@
                 /* Responsive Adjustments */
                 @media (max-width: 991.98px) {
                     .pc-navbar.public-nav {
-                        background: #1a0a00 !important; /* Force background on mobile menu */
+                        background: #1a0a00 !important;
+                        /* Force background on mobile menu */
                         padding: 10px 0;
                     }
-                    
+
                     .pc-navbar.public-nav .navbar-collapse {
                         margin-top: 15px;
                         padding: 15px;
@@ -223,7 +225,8 @@
                 }
             </style>
 
-            <nav class="pc-navbar navbar navbar-expand-lg ${isAdmin ? 'admin-nav' : 'public-nav'} ${currentPath eq '/home' || currentPath eq '/' ? '' : 'scrolled'}" id="mainNavbar">
+            <nav class="pc-navbar navbar navbar-expand-lg ${isAdmin ? 'admin-nav' : 'public-nav'} ${currentPath eq '/home' || currentPath eq '/' ? '' : 'scrolled'}"
+                id="mainNavbar">
                 <div class="container">
                     <!-- Logo -->
                     <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none"
@@ -413,20 +416,20 @@
                     (function () {
                         const nav = document.getElementById('mainNavbar');
                         if (!nav || !nav.classList.contains('public-nav')) return;
-                        
+
                         // Add path class to body for specific page styling
                         const path = '${currentPath}';
                         if (path === '/home' || path === '/') {
                             document.body.classList.add('path-home');
                         }
 
-                        window.addEventListener('scroll', function () {
-                            if (window.scrollY > 60) {
-                                nav.classList.add('scrolled');
-                            } else {
-                                nav.classList.remove('scrolled');
-                            }
-                        }, { passive: true });
+                        // window.addEventListener('scroll', function () {
+                        //     if (window.scrollY > 60) {
+                        //         nav.classList.add('scrolled');
+                        //     } else {
+                        //         nav.classList.remove('scrolled');
+                        //     }
+                        // }, { passive: true });
                     })();
                 </script>
             </c:if>

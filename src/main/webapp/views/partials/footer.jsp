@@ -97,7 +97,7 @@
                 <ul style="list-style:none;padding:0;margin:0;">
                     <li class="d-flex gap-2 align-items-start mb-3">
                         <i class="bi bi-geo-alt-fill" style="color:#f6c06e;margin-top:2px;flex-shrink:0;"></i>
-                        <span style="color:rgba(255,255,255,0.6);font-size:0.88rem;">FPT Polytechnic, Hòa Lạc, Hà Nội</span>
+                        <span style="color:rgba(255,255,255,0.6);font-size:0.88rem;">FPT Polytechnic, thành phố HCM</span>
                     </li>
                     <li class="d-flex gap-2 align-items-center mb-3">
                         <i class="bi bi-telephone-fill" style="color:#f6c06e;flex-shrink:0;"></i>
