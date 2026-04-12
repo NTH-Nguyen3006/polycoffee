@@ -1,0 +1,25 @@
+# Bảng Test Case: Tạo và xử lý hoá đơn
+
+Dưới đây là 10 Test Case (bao gồm cả trường hợp hợp lệ - Happy Path và các trường hợp ngoại lệ - Exception Case) cho chức năng **Tạo và xử lý hoá đơn**. Bảng tuân thủ theo form mẫu bạn cung cấp, với các trường thông tin được điều chỉnh tập trung vào: **Test Case ID, Unit to Test, Test Data, Steps to Execute, Expected Result**.
+
+| Tên Test Case<br>(Test Case ID) | Tên Modul<br>(Unit to Test) | Kịch bản Test<br>(Test Scenario) | Các bước Test<br>(Steps to Execute) | Dữ liệu Test<br>(Test Data) | Kết quả chờ đợi<br>(Expected Result) | Kết quả thực tế<br>(Actual Result) | Trạng thái<br>(Status) | Mức độ ưu tiên<br>(Priority) | Mức độ nghiêm trọng<br>(Severity) | Tên Tester<br>(Tester) | Ngày Test<br>(Test Date) | Ghi chú<br>(Notes) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TC_BILL_01 | Bill (Tạo hoá đơn) | [Happy Path] Tạo hoá đơn thành công khi thêm sản phẩm hợp lệ | 1. Vào màn hình Bán hàng/Tạo hoá đơn<br>2. Chọn một hoặc nhiều sản phẩm<br>3. Nhấn nút "Tạo hoá đơn" / "Lưu" | 1 Cà phê đen đá (25k), 1 Bạc xỉu (30k) | Hệ thống tạo hoá đơn thành công. Trạng thái hiển thị là "Chờ thanh toán". Tổng tiền hiển thị chính xác (55k). | | | High | High | | | |
+| TC_BILL_02 | Bill (Tạo hoá đơn) | [Invalid Case] Lỗi khi tạo hoá đơn không có sản phẩm nào | 1. Vào màn hình Bán hàng/Tạo hoá đơn<br>2. Không thêm bất kỳ sản phẩm nào<br>3. Nhấn nút "Tạo hoá đơn" / "Lưu" | Không có dữ liệu sản phẩm (None) | Hệ thống chặn không cho tạo, hiển thị thông báo lỗi báo động: "Vui lòng thêm ít nhất một sản phẩm vào hoá đơn". | | | High | High | | | |
+| TC_BILL_03 | Bill (Tạo hoá đơn) | [Exception Case] Lỗi khi thêm số lượng mua lớn hơn số lượng tồn kho | 1. Chọn mặt hàng sắp hết vào giỏ (VD: Bánh ngọt)<br>2. Nhập số lượng mua lớn hơn số tồn kho<br>3. Nhấn thông báo thêm vào hoá đơn | Bánh ngọt (Tồn kho: 2), Số lượng nhập: 5 | Hệ thống báo lỗi "Số lượng vượt quá tồn kho" và từ chối thêm mặt hàng này vào danh sách. | | | Medium | High | | | |
+| TC_BILL_04 | Bill (Xử lý Đơn) | [Happy Path] Thanh toán hoá đơn thành công (Tiền khách >= Tổng) | 1. Chọn hoá đơn đang "Chờ thanh toán"<br>2. Nhập số tiền khách đưa<br>3. Bấm "Thanh toán" | Tổng tiền: 55k<br>Tiền khách đưa: 100k | Thanh toán thành công, hoá đơn sang "Đã thanh toán". Hệ thống tính đúng Tiền thối/Tiền thừa: 45k. | | | High | High | | | |
+| TC_BILL_05 | Bill (Xử lý Đơn) | [Invalid Case] Báo lỗi khi tiền khách đưa nhỏ hơn tổng tiền | 1. Chọn hoá đơn đang "Chờ thanh toán"<br>2. Nhập số tiền khách đưa (nhỏ hơn tổng tiền)<br>3. Bấm "Thanh toán" | Tổng tiền: 55k<br>Tiền khách đưa: 50k | Nút Thanh Toán bị mờ (Disable) hoặc Hệ thống báo lỗi "Số tiền khách đưa không đủ/nhỏ hơn tổng tiền". Hoá đơn không thanh toán. | | | High | High | | | |
+| TC_BILL_06 | Bill (Xử lý Đơn) | [Happy Path] Huỷ hoá đơn chờ thanh toán thành công | 1. Chọn hoá đơn "Chờ thanh toán"<br>2. Nhấn "Huỷ hoá đơn"<br>3. Nhập lý do (VD: Khách đổi ý)<br>4. Xác nhận huỷ | Trạng thái: Chờ thanh toán.<br>Lý do huỷ: "Khách đổi ý" | Hoá đơn huỷ thành công, đổi sang "Đã Huỷ", số lượng tồn kho của sản phẩm (nếu có trừ tạm) được hoàn lại kho. | | | Medium | Medium | | | |
+| TC_BILL_07 | Bill (Xử lý Đơn) | [Exception Case] Từ chối huỷ khi hoá đơn đã thanh toán | 1. Chọn hoá đơn "Đã thanh toán"<br>2. Tìm và nhấn "Huỷ hoá đơn" | Trạng thái: Đã thanh toán | Không cho thực hiện. Nút "Huỷ hoá đơn" bị ẩn/disable hoặc thông báo "Không thể huỷ đơn đã giao dịch xong". | | | Medium | High | | | |
+| TC_BILL_08 | Bill (Tạo hoá đơn) | [Happy Path] Thay đổi tăng/giảm số lượng sản phẩm trong hoá đơn | 1. Trong lúc tạo đơn, chọn một sản phẩm đã thêm rồi thay đổi số lượng<br>2. Kiểm tra tổng tiền | Tăng Cà phê đen từ x1 lên x3 | Hệ thống cập nhật tổng số lượng, thành tiền món tăng/giảm tương ứng và "Tổng tiền" được tự động phân bổ lại realtime. | | | Medium | High | | | |
+| TC_BILL_09 | Bill (Tạo hoá đơn) | [Happy Path] Áp dụng mã giảm giá (voucher) hợp lệ | 1. Nhập Mã giảm giá hợp lệ vào ô áp dụng của hoá đơn<br>2. Nhấn "Áp dụng" | Tổng: 100k<br>Mã: GIAM20K (-20k) | Áp dụng thành công, hiển thị chi tiết phần được trừ giảm là -20k, Tổng phí cần thanh toán cập nhật hiển thị 80k. | | | Medium | High | | | |
+| TC_BILL_10 | Bill (Tạo hoá đơn) | [Exception Case] Áp mã giảm giá đã hết hạn hoặc sai | 1. Nhập Mã giảm giá hết hạn vào ô trống<br>2. Nhấn "Áp dụng" | Mã: TET100K (hết hạn từ tuần trước) | Hệ thống từ chối áp dụng và chặn với lỗi "Mã giảm giá không hợp lệ hoặc hết số lượt sử dụng". Số tiền giữ nguyên. | | | Medium | Medium | | | |
+
+---
+
+### Chú thích về các thành phần cấu tạo bạn yêu cầu:
+- **Test Case ID:** Cột *Tên Test Case* (VD: `TC_BILL_01`).
+- **Unit to Test:** Cột *Tên Modul* (VD: `Bill (Tạo hoá đơn)`).
+- **Test Data:** Dữ liệu cung cấp ở cột *Dữ liệu Test* như loại đồ uống, số lượng, hay số tiền thanh toán mô phỏng.
+- **Steps to Execute:** Tại cột *Các bước Test*, chỉ ra rõ lộ trình bấm nút/nhập liệu (thường từ 2-4 bước).
+- **Expected Result:** Cột *Kết quả chờ đợi* khẳng định ứng xử của phần mềm theo đúng chức năng (cho phép thao tác thành công hay bắt ngoại lệ/hiển thị message lỗi).

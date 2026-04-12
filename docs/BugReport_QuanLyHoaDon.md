@@ -314,7 +314,3 @@ Khi nhân viên nhập mã giảm giá hợp lệ (`SUMMER20`) và hệ thống 
 > - BUG-001 (Critical) đã được fix và retest PASS
 > - BUG-002 (High) đã được fix và retest PASS (bao gồm cả regression test)
 > - Không còn bug **Critical** hoặc **High** nào ở trạng thái **Open**
-
----
-
-*Bug Report này thuộc dự án PolyCoffee. Phiên bản: 1.0 | Cập nhật: 08/04/2026*

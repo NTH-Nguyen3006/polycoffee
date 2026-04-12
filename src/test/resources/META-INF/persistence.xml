@@ -6,14 +6,23 @@
     http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="PolyCoffee" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.polycoffee.entity.CartItems</class>
+        <class>com.polycoffee.entity.Carts</class>
+        <class>com.polycoffee.entity.Categories</class>
+        <class>com.polycoffee.entity.OrderItem</class>
+        <class>com.polycoffee.entity.Orders</class>
+        <class>com.polycoffee.entity.Payment</class>
+        <class>com.polycoffee.entity.ProductOptions</class>
+        <class>com.polycoffee.entity.Products</class>
+        <class>com.polycoffee.entity.Promotion</class>
+        <class>com.polycoffee.entity.Users</class>
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=PolyCoffee;encrypt=true;trustServerCertificate=true" />
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:polycoffee;DB_CLOSE_DELAY=-1;MODE=MSSQLServer" />
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="Password123" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
-            <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect" />
         </properties>

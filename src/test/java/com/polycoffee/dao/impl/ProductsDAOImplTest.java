@@ -31,6 +31,16 @@ public class ProductsDAOImplTest {
     @After
     public void tearDown() {
         if (testCategory != null && testCategory.getId() != null) {
+            javax.persistence.EntityManager em = com.polycoffee.utils.XJPA.createEntityManager();
+            try {
+                em.getTransaction().begin();
+                em.createQuery("DELETE FROM Products p WHERE p.category.id = :cid")
+                  .setParameter("cid", testCategory.getId())
+                  .executeUpdate();
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
             categoryDAO.delete(testCategory.getId());
         }
     }

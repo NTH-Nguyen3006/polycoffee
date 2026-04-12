@@ -4,41 +4,48 @@
 
 <%-- Flash messages --%>
 <c:if test="${not empty sessionScope.message}">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4" role="alert">
         <i class="bi bi-check-circle-fill me-2"></i>${sessionScope.message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     <c:remove var="message" scope="session"/>
 </c:if>
 <c:if test="${not empty sessionScope.error}">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>${sessionScope.error}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     <c:remove var="error" scope="session"/>
 </c:if>
 
-<%-- Search Card --%>
-<div class="card mb-4 border-0 shadow-sm">
-    <div class="card-header bg-primary text-white">
-        <i class="bi bi-search me-2"></i><strong>Tìm kiếm sản phẩm</strong>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 fw-bold mb-1"><i class="bi bi-cup-hot-fill me-2" style="color:#198754;"></i>Quản Lý Sản Phẩm</h1>
+        <p class="text-muted mb-0">Quản lý các loại đồ uống, thức ăn và cập nhật trạng thái bán.</p>
     </div>
-    <div class="card-body bg-light">
+    <a href="${pageContext.request.contextPath}/admin/product/create" class="btn fw-bold px-4 rounded-pill text-white" style="background:linear-gradient(135deg, #198754, #146c43);">
+        <i class="bi bi-plus-circle me-1"></i>Thêm Sản Phẩm Mới
+    </a>
+</div>
+
+<%-- Search Card --%>
+<div class="card mb-4 border-0 shadow-sm rounded-4">
+    <div class="card-body p-4 bg-white rounded-4">
         <form action="${pageContext.request.contextPath}/admin/product" method="get">
             <div class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">
-                        <i class="bi bi-cup-hot me-1"></i>Tên đồ uống
+                    <label class="form-label small fw-bold text-uppercase text-muted">
+                        <i class="bi bi-search me-1"></i>Tìm theo tên
                     </label>
-                    <input type="text" class="form-control" name="name"
+                    <input type="text" class="form-control rounded-3" name="name"
                            value="${name}" placeholder="Nhập tên đồ uống...">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">
-                        <i class="bi bi-tag me-1"></i>Loại đồ uống
+                    <label class="form-label small fw-bold text-uppercase text-muted">
+                        <i class="bi bi-tag me-1"></i>Lọc theo nhóm
                     </label>
-                    <select class="form-select" name="categoryId">
-                        <option value="">-- Tất cả loại --</option>
+                    <select class="form-select rounded-3" name="categoryId">
+                        <option value="">-- Tất cả danh mục --</option>
                         <c:forEach var="cat" items="${categories}">
                             <option value="${cat.id}"
                                 <c:if test="${categoryId == cat.id}">selected</c:if>>
@@ -48,21 +55,21 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label fw-semibold">
-                        <i class="bi bi-toggle-on me-1"></i>Trạng thái
+                    <label class="form-label small fw-bold text-uppercase text-muted">
+                        <i class="bi bi-filter-circle me-1"></i>Trạng thái
                     </label>
-                    <select class="form-select" name="available">
+                    <select class="form-select rounded-3" name="available">
                         <option value="">-- Tất cả --</option>
                         <option value="true"  <c:if test="${available == true}">selected</c:if>>Đang bán</option>
                         <option value="false" <c:if test="${available == false}">selected</c:if>>Ngừng bán</option>
                     </select>
                 </div>
                 <div class="col-md-2 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary w-100">
+                    <button type="submit" class="btn text-white w-100 rounded-3" style="background-color: #6f4e37;">
                         <i class="bi bi-search me-1"></i>Tìm
                     </button>
-                    <a href="${pageContext.request.contextPath}/admin/product" class="btn btn-outline-secondary w-100">
-                        <i class="bi bi-x-lg"></i>
+                    <a href="${pageContext.request.contextPath}/admin/product" class="btn btn-light rounded-3 px-3">
+                        <i class="bi bi-arrow-clockwise"></i>
                     </a>
                 </div>
             </div>
@@ -71,29 +78,25 @@
 </div>
 
 <%-- Main Table Card --%>
-<div class="card border-0 shadow-sm">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <span>
-            <i class="bi bi-cup-straw me-2"></i><strong>Danh sách đồ uống</strong>
-            <span class="badge bg-light text-primary ms-2">${totalItems} sản phẩm</span>
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+        <span class="fw-bold text-dark">
+            <i class="bi bi-list-nested me-2 text-primary"></i>Danh sách sản phẩm
+            <span class="badge bg-light text-primary border ms-2 rounded-pill">${totalItems} SP</span>
         </span>
-        <a href="${pageContext.request.contextPath}/admin/product/create" class="btn btn-light btn-sm">
-            <i class="bi bi-plus-circle me-1"></i>Thêm mới
-        </a>
     </div>
 
     <div class="card-body p-0 table-responsive">
-        <table class="table table-hover table-bordered mb-0 align-middle">
+        <table class="table table-hover mb-0 align-middle">
             <thead class="table-light">
                 <tr>
-                    <th style="width:50px;">#</th>
-                    <th style="width:65px;">Ảnh</th>
-                    <th>Tên đồ uống</th>
-                    <th>Loại</th>
-                    <th>Giá cơ bản</th>
-                    <th>Trạng thái</th>
-                    <th>Nổi bật</th>
-                    <th class="text-center" style="width:100px;">Thao tác</th>
+                    <th class="ps-4" style="width:50px;">#</th>
+                    <th style="width:70px;">Ảnh</th>
+                    <th>Thông tin sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>Đơn giá</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th class="text-center" style="width:130px; padding-right: 20px;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,67 +104,72 @@
                     <c:when test="${not empty products}">
                         <c:forEach var="item" items="${products}" varStatus="loop">
                             <tr>
-                                <td class="text-muted">${(currentPage - 1) * 10 + loop.index + 1}</td>
+                                <td class="ps-4 text-muted fw-semibold">${(currentPage - 1) * 10 + loop.index + 1}</td>
                                 <td>
-                                    <c:choose>
-                                        <c:when test="${not empty item.thumbnailUrl}">
-                                            <img src="${item.thumbnailUrl}" alt="${item.name}"
-                                                 class="rounded" style="width:48px;height:48px;object-fit:cover;">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="bg-light rounded d-flex align-items-center justify-content-center text-muted"
-                                                 style="width:48px;height:48px;">
-                                                <i class="bi bi-cup-hot"></i>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <div class="rounded-3 overflow-hidden shadow-sm border border-light" style="width:52px;height:52px;background:#f8f9fa;">
+                                        <c:choose>
+                                            <c:when test="${not empty item.thumbnailUrl}">
+                                                <img src="${item.thumbnailUrl}" alt="${item.name}"
+                                                     onerror="this.src='https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=150&h=150&auto=format&fit=crop'"
+                                                     style="width:100%;height:100%;object-fit:cover;">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="d-flex w-100 h-100 align-items-center justify-content-center text-muted">
+                                                    <i class="bi bi-cup-hot" style="font-size:1.3rem;"></i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
                                 </td>
                                 <td>
-                                    <div class="fw-semibold">${item.name}</div>
+                                    <div class="fw-bold text-dark d-flex align-items-center gap-2">
+                                        ${item.name}
+                                        <c:if test="${item.featured}">
+                                            <i class="bi bi-star-fill text-warning shadow-sm" style="font-size: 11px;" title="Nổi bật"></i>
+                                        </c:if>
+                                    </div>
                                     <c:if test="${not empty item.description}">
-                                        <small class="text-muted"
-                                               style="display:block;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                                        <div class="small text-muted fst-italic mt-1"
+                                               style="display:block;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
                                             ${item.description}
-                                        </small>
+                                        </div>
                                     </c:if>
                                 </td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${not empty item.category}">
-                                            <span class="badge bg-secondary">${item.category.name}</span>
+                                            <span class="badge" style="background:rgba(13,110,253,0.1);color:#0d6efd;border:1px solid rgba(13,110,253,0.2);">
+                                                ${item.category.name}
+                                            </span>
                                         </c:when>
-                                        <c:otherwise><span class="text-muted">—</span></c:otherwise>
+                                        <c:otherwise><span class="text-muted fst-italic">—</span></c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td class="fw-semibold text-primary">
+                                <td class="fw-bold text-success">
                                     <fmt:formatNumber value="${item.basePrice}" type="number" groupingUsed="true"/>đ
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <c:choose>
                                         <c:when test="${item.available}">
-                                            <span class="badge bg-success">Đang bán</span>
+                                            <span class="badge rounded-pill bg-success px-3 shadow-sm" style="font-weight: 600;">
+                                                <i class="bi bi-check-circle me-1"></i>Đang bán
+                                            </span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="badge bg-danger">Ngừng bán</span>
+                                            <span class="badge rounded-pill bg-danger px-3 shadow-sm" style="font-weight: 600;">
+                                                <i class="bi bi-x-circle me-1"></i>Ngừng bán
+                                            </span>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td class="text-center">
-                                    <c:if test="${item.featured}">
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                    </c:if>
-                                    <c:if test="${!item.featured}">
-                                        <i class="bi bi-star text-muted"></i>
-                                    </c:if>
-                                </td>
-                                <td class="text-center">
+                                <td class="text-center pe-4">
                                     <a href="${pageContext.request.contextPath}/admin/product/edit?id=${item.id}"
-                                       class="btn btn-sm btn-outline-primary me-1" title="Chỉnh sửa">
+                                       class="btn btn-sm btn-outline-primary rounded-circle" style="width:32px;height:32px;padding:0;line-height:30px;" title="Chỉnh sửa">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <a href="${pageContext.request.contextPath}/admin/product/delete?id=${item.id}"
-                                       class="btn btn-sm btn-outline-danger"
-                                       onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?');"
+                                       class="btn btn-sm btn-outline-danger rounded-circle mx-1" style="width:32px;height:32px;padding:0;line-height:30px;"
+                                       onclick="return confirm('Bạn có chắc muốn xóa sản phẩm ${item.name}?');"
                                        title="Xóa">
                                         <i class="bi bi-trash"></i>
                                     </a>
@@ -171,11 +179,14 @@
                     </c:when>
                     <c:otherwise>
                         <tr>
-                            <td colspan="8" class="text-center text-muted py-5">
-                                <i class="bi bi-cup-hot fs-2 d-block mb-2"></i>
-                                Không tìm thấy sản phẩm nào phù hợp.
+                            <td colspan="7" class="text-center py-5">
+                                <div style="width:80px;height:80px;border-radius:50%;background:#f8f9fa;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                                    <i class="bi bi-cup-straw fs-2 text-muted opacity-50"></i>
+                                </div>
+                                <h6 class="fw-bold text-muted">Không tìm thấy sản phẩm</h6>
+                                <p class="text-muted small mb-3">Có vẻ từ khóa tìm kiếm không khớp với món nào.</p>
                                 <a href="${pageContext.request.contextPath}/admin/product"
-                                   class="d-block mt-2 small">Xem tất cả</a>
+                                   class="btn btn-outline-secondary btn-sm rounded-pill px-3">Xóa bộ lọc</a>
                             </td>
                         </tr>
                     </c:otherwise>
@@ -186,62 +197,33 @@
 
     <%-- Pagination --%>
     <c:if test="${totalPages >= 1}">
-        <div class="card-footer bg-white d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <small class="text-muted">
-                Trang <strong>${currentPage}</strong> / <strong>${totalPages}</strong>
-                &nbsp;·&nbsp; Tổng <strong>${totalItems}</strong> sản phẩm
+        <div class="card-footer bg-white border-top py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <small class="text-muted fw-semibold">
+                Hiển thị trang <span class="badge bg-light text-dark border mx-1">${currentPage} / ${totalPages}</span>
             </small>
             <c:if test="${totalPages > 1}">
                 <nav>
                     <ul class="pagination pagination-sm mb-0">
-
-                        <%-- Previous --%>
                         <li class="page-item ${currentPage <= 1 ? 'disabled' : ''}">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/admin/product?page=${currentPage - 1}&name=${name}&categoryId=${categoryId}&available=${available}">
+                            <a class="page-link shadow-sm text-dark" href="${pageContext.request.contextPath}/admin/product?page=${currentPage - 1}&name=${name}&categoryId=${categoryId}&available=${available}">
                                <i class="bi bi-chevron-left"></i>
                             </a>
                         </li>
-
-                        <%-- Page window --%>
                         <c:set var="startPage" value="${currentPage - 2 < 1 ? 1 : currentPage - 2}"/>
                         <c:set var="endPage"   value="${currentPage + 2 > totalPages ? totalPages : currentPage + 2}"/>
-
-                        <c:if test="${startPage > 1}">
-                            <li class="page-item">
-                                <a class="page-link" href="${pageContext.request.contextPath}/admin/product?page=1&name=${name}&categoryId=${categoryId}&available=${available}">1</a>
-                            </li>
-                            <c:if test="${startPage > 2}">
-                                <li class="page-item disabled"><span class="page-link">…</span></li>
-                            </c:if>
-                        </c:if>
-
                         <c:forEach var="i" begin="${startPage}" end="${endPage}">
                             <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                <a class="page-link"
+                                <a class="page-link shadow-sm ${i == currentPage ? 'bg-primary text-white border-primary' : 'text-dark'}"
                                    href="${pageContext.request.contextPath}/admin/product?page=${i}&name=${name}&categoryId=${categoryId}&available=${available}">
                                    ${i}
                                 </a>
                             </li>
                         </c:forEach>
-
-                        <c:if test="${endPage < totalPages}">
-                            <c:if test="${endPage < totalPages - 1}">
-                                <li class="page-item disabled"><span class="page-link">…</span></li>
-                            </c:if>
-                            <li class="page-item">
-                                <a class="page-link" href="${pageContext.request.contextPath}/admin/product?page=${totalPages}&name=${name}&categoryId=${categoryId}&available=${available}">${totalPages}</a>
-                            </li>
-                        </c:if>
-
-                        <%-- Next --%>
                         <li class="page-item ${currentPage >= totalPages ? 'disabled' : ''}">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/admin/product?page=${currentPage + 1}&name=${name}&categoryId=${categoryId}&available=${available}">
+                            <a class="page-link shadow-sm text-dark" href="${pageContext.request.contextPath}/admin/product?page=${currentPage + 1}&name=${name}&categoryId=${categoryId}&available=${available}">
                                <i class="bi bi-chevron-right"></i>
                             </a>
                         </li>
-
                     </ul>
                 </nav>
             </c:if>

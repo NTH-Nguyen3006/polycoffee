@@ -46,7 +46,18 @@ public class PaymentDAOImplTest {
 
     @After
     public void tearDown() {
+        // Xoá các payment liên quan đến testOrder trước để tránh lỗi Foreign Key
         if (testOrder != null && testOrder.getId() != null) {
+            javax.persistence.EntityManager em = com.polycoffee.utils.XJPA.createEntityManager();
+            try {
+                em.getTransaction().begin();
+                em.createQuery("DELETE FROM Payment p WHERE p.order.id = :oid")
+                  .setParameter("oid", testOrder.getId())
+                  .executeUpdate();
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
             ordersDAO.delete(testOrder.getId());
         }
         if (testUser != null && testUser.getId() != null) {
