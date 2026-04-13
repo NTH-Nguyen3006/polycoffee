@@ -17,7 +17,6 @@ import com.polycoffee.entity.Users;
 import com.polycoffee.enums.UserRole;
 
 public class OrdersDAOTest {
-
     private final OrdersDAO ordersDAO = new OrdersDAO();
     private final UserDAO userDAO = new UserDAO();
     private Users testUser;
