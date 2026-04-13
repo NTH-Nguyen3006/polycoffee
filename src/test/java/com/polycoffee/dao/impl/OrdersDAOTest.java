@@ -1,18 +1,20 @@
 package com.polycoffee.dao.impl;
 
-import com.polycoffee.entity.Orders;
-import com.polycoffee.entity.Users;
-import com.polycoffee.enums.UserRole;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-
-import static org.junit.Assert.*;
+import com.polycoffee.entity.Orders;
+import com.polycoffee.entity.Users;
+import com.polycoffee.enums.UserRole;
 
 public class OrdersDAOTest {
 
