@@ -396,6 +396,25 @@
                         <span class="fw-bold fs-5" style="color:#e8821c;" id="modalTotal"></span>
                     </div>
                 </div>
+
+                <div class="mb-3">
+                    <label class="fw-semibold mb-2" style="font-size:0.88rem;">Phương thức thanh toán</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paySePay" value="SEPAY" checked>
+                            <label class="form-check-label" for="paySePay">
+                                <i class="bi bi-qr-code text-primary"></i> Chuyển khoản QR (SePay)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="payCOD" value="COD">
+                            <label class="form-check-label" for="payCOD">
+                                <i class="bi bi-cash-coin text-success"></i> Tiền mặt (COD)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <label class="fw-semibold mb-2" style="font-size:0.88rem;">Ghi chú (tuỳ chọn)</label>
                     <textarea class="form-control" id="orderNote" rows="3"
@@ -406,7 +425,7 @@
             <div class="modal-footer border-0 p-4 pt-0">
                 <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
                         data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn rounded-pill px-5 fw-bold"
+                <button type="button" class="btn rounded-pill px-5 fw-bold" id="btnConfirmCheckOut"
                         style="background:linear-gradient(135deg,#e8891c,#d4722a);color:#fff;"
                         onclick="confirmOrder()">
                     <i class="bi bi-check-circle me-1"></i>Xác Nhận
@@ -558,29 +577,66 @@ function checkout() {
     modal.show();
 }
 
-function confirmOrder() {
-    // Build order note
+async function confirmOrder() {
+    if (cart.length === 0) return;
+
     const note = document.getElementById('orderNote').value;
-    const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+    const btn = document.getElementById('btnConfirmCheckOut');
+    
+    // Disable button to prevent double submit
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...';
 
-    // Show success toast
-    bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
-    Toastify({
-        text: '✅ Đặt hàng thành công! Chúng tôi đang chuẩn bị đơn của bạn.',
-        duration: 4000,
-        gravity: 'top', position: 'center',
-        stopOnFocus: true,
-        style: {
-            background: 'linear-gradient(135deg, #198754, #0a3622)',
-            borderRadius: '14px', fontWeight: '600', fontFamily: 'inherit',
-            fontSize: '14px', maxWidth: '400px'
+    const payload = {
+        items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+        note: note,
+        paymentMethod: paymentMethod
+    };
+
+    try {
+        const response = await fetch(cp + '/payment/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
+            
+            // Clear cart
+            cart = [];
+            renderCart();
+            document.getElementById('orderNote').value = '';
+
+            if (data.payUrl) {
+                // Redirect to VNPay
+                window.location.href = data.payUrl;
+            } else {
+                // COD Success
+                Toastify({
+                    text: '✅ Đặt hàng thành công! (Thanh toán khi nhận hàng)',
+                    duration: 4000,
+                    gravity: 'top', position: 'center',
+                    stopOnFocus: true,
+                    style: {
+                        background: 'linear-gradient(135deg, #198754, #0a3622)',
+                        borderRadius: '14px', fontWeight: '600', fontFamily: 'inherit'
+                    }
+                }).showToast();
+            }
+        } else {
+            alert('Lỗi: ' + (data.error || 'Không thể tạo đơn hàng'));
         }
-    }).showToast();
-
-    // Clear cart after order
-    cart = [];
-    renderCart();
-    document.getElementById('orderNote').value = '';
+    } catch (err) {
+        alert('Lỗi kết nối đến máy chủ.');
+        console.error(err);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Xác Nhận';
+    }
 }
 
 // ─── Mobile cart toggle ───────────────────────────

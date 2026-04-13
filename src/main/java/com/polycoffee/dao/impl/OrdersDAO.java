@@ -130,6 +130,67 @@ public class OrdersDAO implements IOrdersDAO {
         }
     }
 
+    @Override
+    public void updatePaymentStatus(Long id, String paymentStatus) {
+        EntityManager em = XJPA.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Orders order = em.find(Orders.class, id);
+            if (order != null) {
+                order.setPaymentStatus(paymentStatus);
+                em.merge(order);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new RuntimeException(e);
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void createWithItems(Orders order, java.util.List<java.util.Map<String, Object>> items) {
+        EntityManager em = XJPA.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            // Lưu Order trước
+            if (order.getId() == null) {
+                em.persist(order);
+            } else {
+                em.merge(order);
+            }
+
+            // Lưu các OrderItems
+            for (java.util.Map<String, Object> itemMap : items) {
+                String productIdStr = (String) itemMap.get("id");
+                UUID productId = UUID.fromString(productIdStr);
+                
+                com.polycoffee.entity.Products product = em.find(com.polycoffee.entity.Products.class, productId);
+                
+                if (product != null) {
+                    Integer qty = ((Number) itemMap.get("qty")).intValue();
+                    java.math.BigDecimal price = new java.math.BigDecimal(((Number) itemMap.get("price")).longValue());
+                    
+                    com.polycoffee.entity.OrderItem orderItem = com.polycoffee.entity.OrderItem.builder()
+                            .order(order)
+                            .product(product)
+                            .quantity(qty)
+                            .price(price)
+                            .build();
+                    em.persist(orderItem);
+                }
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new RuntimeException(e);
+        } finally {
+            em.close();
+        }
+    }
+
     // ===================== BÀI 1: Phân trang đơn hàng =====================
 
     @Override

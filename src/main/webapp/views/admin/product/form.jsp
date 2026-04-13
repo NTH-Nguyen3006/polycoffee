@@ -27,7 +27,7 @@
                             <div class="card-body">
                                 <form
                                     action="${pageContext.request.contextPath}/admin/product/${empty product ? 'create' : 'edit'}"
-                                    method="post">
+                                    method="post" enctype="multipart/form-data">
 
                                     <c:if test="${not empty product}">
                                         <input type="hidden" name="id" value="${product.id}">
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
 
-                                        <%-- Giá & URL ảnh --%>
+                                        <%-- Giá & Upload ảnh --%>
                                             <div class="row mb-3">
                                                 <div class="col-md-5">
                                                     <label class="form-label fw-semibold">
@@ -72,12 +72,13 @@
                                                 </div>
                                                 <div class="col-md-7">
                                                     <label class="form-label fw-semibold">
-                                                        <i class="bi bi-image me-1"></i>URL ảnh sản phẩm
+                                                        <i class="bi bi-image me-1"></i>Ảnh sản phẩm
                                                     </label>
-                                                    <input type="url" class="form-control" name="thumbnailUrl"
-                                                        id="thumbnailUrlInput" value="${product.thumbnailUrl}"
-                                                        placeholder="https://example.com/image.jpg"
-                                                        oninput="previewImage(this.value)">
+                                                    <input type="file" class="form-control" name="thumbnailFile"
+                                                        id="thumbnailFileInput" accept="image/*"
+                                                        onchange="previewLocalImage(this)">
+                                                    <%-- Hidden field to keep old image if no new file uploaded --%>
+                                                    <input type="hidden" name="thumbnailUrl" value="${product.thumbnailUrl}">
                                                 </div>
                                             </div>
 
@@ -86,7 +87,9 @@
                                                     style="${empty product.thumbnailUrl ? 'display:none;' : ''}">
                                                     <label class="form-label fw-semibold">Xem trước ảnh</label>
                                                     <div>
-                                                        <img id="previewImg" src="${pageContext.request.contextPath}/uploads/images/${product.thumbnailUrl}" alt="Preview"
+                                                        <img id="previewImg" 
+                                                            src="${not empty product.thumbnailUrl ? (product.thumbnailUrl.startsWith('http') ? product.thumbnailUrl : pageContext.request.contextPath.concat('/uploads/images/').concat(product.thumbnailUrl)) : ''}" 
+                                                            alt="Preview"
                                                             class="img-thumbnail"
                                                             style="max-height:160px;object-fit:cover;">
                                                     </div>
@@ -153,19 +156,24 @@
             </div>
 
             <script>
-                function previewImage(url) {
+                function previewLocalImage(input) {
                     const box = document.getElementById('previewBox');
                     const img = document.getElementById('previewImg');
-                    if (url && url.trim() !== '') {
-                        if (!url.startsWith('http')) {
-                            img.src = '${pageContext.request.contextPath}/uploads/images/' + url;
-                        } else {
-                            img.src = url;
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            img.src = e.target.result;
+                            box.style.display = '';
                         }
-                        box.style.display = '';
-                        img.onerror = () => { box.style.display = 'none'; };
+                        reader.readAsDataURL(input.files[0]);
                     } else {
-                        box.style.display = 'none';
+                        const oldUrl = document.getElementsByName('thumbnailUrl')[0].value;
+                        if (oldUrl) {
+                            img.src = oldUrl.startsWith('http') ? oldUrl : '${pageContext.request.contextPath}/uploads/images/' + oldUrl;
+                            box.style.display = '';
+                        } else {
+                            box.style.display = 'none';
+                        }
                     }
                 }
             </script>

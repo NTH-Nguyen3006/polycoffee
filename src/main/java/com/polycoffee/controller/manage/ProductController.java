@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 
 import com.polycoffee.controller.LayoutController;
 import com.polycoffee.dao.ICategoryDAO;
@@ -19,6 +22,11 @@ import com.polycoffee.entity.Categories;
 import com.polycoffee.entity.Products;
 
 @WebServlet({ "/admin/product", "/admin/product/create", "/admin/product/edit", "/admin/product/delete" })
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024, // 1MB
+    maxFileSize = 1024 * 1024 * 5,    // 5MB
+    maxRequestSize = 1024 * 1024 * 10 // 10MB
+)
 public class ProductController extends LayoutController {
 
     private IProductsDao dao = new ProductsDAOImpl();
@@ -112,6 +120,24 @@ public class ProductController extends LayoutController {
         Categories category = null;
         if (categoryIdStr != null && !categoryIdStr.isEmpty()) {
             category = categoryDao.findById(Long.parseLong(categoryIdStr));
+        }
+
+        // Xử lý upload ảnh
+        try {
+            Part part = req.getPart("thumbnailFile");
+            if (part != null && part.getSize() > 0) {
+                String fileName = part.getSubmittedFileName();
+                String ext = fileName.substring(fileName.lastIndexOf("."));
+                thumbnailUrl = UUID.randomUUID().toString() + ext;
+                
+                String uploadPath = req.getServletContext().getRealPath("/uploads/images");
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) uploadDir.mkdirs();
+                
+                part.write(uploadPath + File.separator + thumbnailUrl);
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi upload ảnh: " + e.getMessage());
         }
 
         try {

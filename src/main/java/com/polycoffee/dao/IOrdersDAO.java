@@ -16,6 +16,9 @@ public interface IOrdersDAO extends ICRUD<Long, Orders> {
 
     void updateStatus(Long id, String newStatus);
 
+    void updatePaymentStatus(Long id, String paymentStatus);
+
+    void createWithItems(Orders order, java.util.List<java.util.Map<String, Object>> items);
     // Pagination
     List<Orders> findAllPaginated(String status, int page, int pageSize);
     long countAll(String status);

@@ -42,4 +42,10 @@ public class Payment {
 
     @Column(name = "payment_date")
     LocalDateTime paymentDate;
+
+    @Column(name = "vnpay_bank_code")
+    String vnpayBankCode;
+
+    @Column(name = "vnpay_response_code")
+    String vnpayResponseCode;
 }
